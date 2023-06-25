@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import tokosembakoberkah.view.Barang.BarangPanel;
 import tokosembakoberkah.view.Dashboard.DashboardPanel;
-import tokosembakoberkah.view.Navigation;
+import tokosembakoberkah.view.Navigation.Navigation;
 import tokosembakoberkah.view.Transaksi.TransaksiPanel;
 
 public class MainFrame extends JFrame {

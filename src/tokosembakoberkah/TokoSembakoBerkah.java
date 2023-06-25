@@ -4,7 +4,7 @@
  */
 package tokosembakoberkah;
 
-import tokosembakoberkah.view.LoginFrame;
+import tokosembakoberkah.view.Login.LoginFrame;
 
 /**
  *
