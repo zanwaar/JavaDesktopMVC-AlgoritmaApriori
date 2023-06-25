@@ -21,7 +21,7 @@ public class Navigation extends javax.swing.JPanel {
     private JButton activeButton; // Tombol aktif saat ini
     public Navigation() {
         initComponents();
-        activeButton = dahsboard; // Menginisialisasi tombol aktif
+        activeButton = dahsboard; // Menginisialisasi tombol aktif tes
         setActiveButton(dahsboard); // Mengatur warna latar belakang awal
     }
     private void setActiveButton(JButton button) {
