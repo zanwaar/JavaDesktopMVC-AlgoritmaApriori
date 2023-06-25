@@ -27,12 +27,13 @@ public class Navigation extends javax.swing.JPanel {
     private void setActiveButton(JButton button) {
         // Mengubah warna latar belakang tombol aktif sebelumnya (jika ada)
         if (activeButton != null) {
-            activeButton.setBackground(Color.darkGray);
+            activeButton.setBackground(Color.white);
+            activeButton.setForeground(Color.DARK_GRAY);
         }
 
         // Mengatur warna latar belakang tombol yang baru menjadi berbeda
         button.setBackground(Color.blue);
-
+ button.setForeground(Color.WHITE);
         // Mengatur tombol yang baru sebagai tombol aktif
         activeButton = button;
     }
@@ -48,10 +49,13 @@ public class Navigation extends javax.swing.JPanel {
         dahsboard = new javax.swing.JButton();
         Transaksi = new javax.swing.JButton();
         Barang = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(java.awt.Color.darkGray);
 
         dahsboard.setText("Dashboard");
+        dahsboard.setFocusPainted(false);
         dahsboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dahsboardActionPerformed(evt);
@@ -59,6 +63,7 @@ public class Navigation extends javax.swing.JPanel {
         });
 
         Transaksi.setText("Transaksi");
+        Transaksi.setFocusPainted(false);
         Transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TransaksiActionPerformed(evt);
@@ -66,34 +71,50 @@ public class Navigation extends javax.swing.JPanel {
         });
 
         Barang.setText("Barang");
+        Barang.setFocusPainted(false);
         Barang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BarangActionPerformed(evt);
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.setFocusPainted(false);
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("PT TOKO SEMBAKO BERKAH");
+        jLabel1.setFocusable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Transaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Barang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dahsboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Transaksi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Barang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dahsboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(dahsboard)
-                .addGap(28, 28, 28)
-                .addComponent(Barang)
-                .addGap(18, 18, 18)
-                .addComponent(Transaksi)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(102, 102, 102)
+                .addComponent(dahsboard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Barang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(321, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -126,5 +147,7 @@ public class Navigation extends javax.swing.JPanel {
     private javax.swing.JButton Barang;
     private javax.swing.JButton Transaksi;
     private javax.swing.JButton dahsboard;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

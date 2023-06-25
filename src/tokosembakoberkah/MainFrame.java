@@ -22,13 +22,13 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         initComponents();
-        
+
         // Buat objek Navigation
         navigation = new Navigation();
-        
+
         // Buat objek DashboardPanel
         DashboardPanel dashboardPanel = new DashboardPanel();
-        
+
         // Set panel konten awal sebagai panel dashboard
         contentPanel = dashboardPanel;
         getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -84,7 +84,6 @@ public class MainFrame extends JFrame {
         repaint();
     }
   
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MainFrame mainFrame = new MainFrame();
