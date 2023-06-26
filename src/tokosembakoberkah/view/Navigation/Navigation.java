@@ -27,12 +27,12 @@ public class Navigation extends javax.swing.JPanel {
     private void setActiveButton(JButton button) {
         // Mengubah warna latar belakang tombol aktif sebelumnya (jika ada)
         if (activeButton != null) {
-            activeButton.setBackground(Color.white);
-            activeButton.setForeground(Color.DARK_GRAY);
+            activeButton.setBackground(new Color(20,49,73));
+            activeButton.setForeground(Color.WHITE);
         }
 
         // Mengatur warna latar belakang tombol yang baru menjadi berbeda
-        button.setBackground(Color.blue);
+       button.setBackground(new Color(255, 153, 51));
  button.setForeground(Color.WHITE);
         // Mengatur tombol yang baru sebagai tombol aktif
         activeButton = button;
@@ -51,40 +51,61 @@ public class Navigation extends javax.swing.JPanel {
         Barang = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
-        setBackground(java.awt.Color.darkGray);
+        setBackground(new java.awt.Color(0, 153, 153));
+        setToolTipText("");
 
-        dahsboard.setText("Dashboard");
+        dahsboard.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        dahsboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/screen (1).png"))); // NOI18N
+        dahsboard.setText("  Dashboard");
         dahsboard.setFocusPainted(false);
+        dahsboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         dahsboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dahsboardActionPerformed(evt);
             }
         });
 
-        Transaksi.setText("Transaksi");
+        Transaksi.setBackground(new java.awt.Color(20, 49, 73));
+        Transaksi.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        Transaksi.setForeground(java.awt.Color.white);
+        Transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/screen (1).png"))); // NOI18N
+        Transaksi.setText("  Transaksi");
         Transaksi.setFocusPainted(false);
+        Transaksi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TransaksiActionPerformed(evt);
             }
         });
 
-        Barang.setText("Barang");
+        Barang.setBackground(new java.awt.Color(20, 49, 73));
+        Barang.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        Barang.setForeground(new java.awt.Color(255, 255, 255));
+        Barang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/screen (1).png"))); // NOI18N
+        Barang.setText("  Barang");
         Barang.setFocusPainted(false);
+        Barang.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Barang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BarangActionPerformed(evt);
             }
         });
 
-        jButton1.setText("jButton1");
+        jButton1.setBackground(new java.awt.Color(246, 246, 246));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/inventory.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("PT TOKO SEMBAKO BERKAH");
         jLabel1.setFocusable(false);
+
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -101,20 +122,23 @@ public class Navigation extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(102, 102, 102)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(dahsboard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Barang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -149,5 +173,6 @@ public class Navigation extends javax.swing.JPanel {
     private javax.swing.JButton dahsboard;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

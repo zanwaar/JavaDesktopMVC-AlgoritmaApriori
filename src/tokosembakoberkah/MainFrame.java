@@ -32,12 +32,21 @@ public class MainFrame extends JFrame {
         // Set panel konten awal sebagai panel dashboard
         contentPanel = dashboardPanel;
         getContentPane().add(contentPanel, BorderLayout.CENTER);
+        initUI();
     }
-
+    private void initUI(){ 
+        
+        Dimension windowSize = getSize();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Point centerPoint = ge.getCenterPoint();
+        int dx = centerPoint.x - windowSize.width / 2;
+        int dy = centerPoint.y - windowSize.height / 2;    
+        setLocation(dx, dy);
+    }
     private void initComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Main Frame");
-        setSize(800, 600);
+        setSize(1400, 800);
 
         // Membuat objek panel navigasi dan panel konten
         navigation = new Navigation();
