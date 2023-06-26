@@ -13,6 +13,7 @@ import java.awt.*;
 import tokosembakoberkah.view.Barang.BarangPanel;
 import tokosembakoberkah.view.Dashboard.DashboardPanel;
 import tokosembakoberkah.view.Navigation.Navigation;
+import tokosembakoberkah.view.SupplierPelanggan.SupplierPelanggan;
 import tokosembakoberkah.view.Transaksi.TransaksiPanel;
 
 public class MainFrame extends JFrame {
@@ -80,6 +81,10 @@ public class MainFrame extends JFrame {
             case "barang":
                 BarangPanel barangPanel = new BarangPanel();
                 contentPanel = barangPanel;
+                break;
+            case "sp":
+                SupplierPelanggan spPanel = new SupplierPelanggan();
+                contentPanel = spPanel;
                 break;
             default:
                 break;

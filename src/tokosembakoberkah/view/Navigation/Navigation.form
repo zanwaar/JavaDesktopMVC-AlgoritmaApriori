@@ -23,20 +23,21 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Transaksi" alignment="1" max="32767" attributes="0"/>
                   <Component id="Barang" alignment="0" max="32767" attributes="0"/>
                   <Component id="dahsboard" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="Transaksi" alignment="0" max="32767" attributes="0"/>
+                  <Component id="SP" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -49,11 +50,13 @@
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="dahsboard" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="Barang" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="Transaksi" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace pref="341" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="SP" min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace pref="267" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +68,7 @@
           <Font name="sansserif" size="14" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/res/icon/screen (1).png"/>
+          <Image iconType="3" name="/res/icon/dashboard.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="  Dashboard"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -87,7 +90,7 @@
           <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/res/icon/screen (1).png"/>
+          <Image iconType="3" name="/res/icon/transaksi.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="  Transaksi"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -109,7 +112,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/res/icon/screen (1).png"/>
+          <Image iconType="3" name="/res/icon/barang.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="  Barang"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -155,6 +158,28 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="SP">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="49" green="31" red="14" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/res/icon/sp.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="  Supplier &amp; pelanggan "/>
+        <Property name="focusPainted" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SPActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

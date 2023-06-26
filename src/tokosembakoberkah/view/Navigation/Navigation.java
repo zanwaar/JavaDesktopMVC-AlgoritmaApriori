@@ -52,12 +52,13 @@ public class Navigation extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        SP = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setToolTipText("");
 
         dahsboard.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        dahsboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/screen (1).png"))); // NOI18N
+        dahsboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/dashboard.png"))); // NOI18N
         dahsboard.setText("  Dashboard");
         dahsboard.setFocusPainted(false);
         dahsboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -70,7 +71,7 @@ public class Navigation extends javax.swing.JPanel {
         Transaksi.setBackground(new java.awt.Color(20, 49, 73));
         Transaksi.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         Transaksi.setForeground(java.awt.Color.white);
-        Transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/screen (1).png"))); // NOI18N
+        Transaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/transaksi.png"))); // NOI18N
         Transaksi.setText("  Transaksi");
         Transaksi.setFocusPainted(false);
         Transaksi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -83,7 +84,7 @@ public class Navigation extends javax.swing.JPanel {
         Barang.setBackground(new java.awt.Color(20, 49, 73));
         Barang.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         Barang.setForeground(new java.awt.Color(255, 255, 255));
-        Barang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/screen (1).png"))); // NOI18N
+        Barang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/barang.png"))); // NOI18N
         Barang.setText("  Barang");
         Barang.setFocusPainted(false);
         Barang.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -107,22 +108,36 @@ public class Navigation extends javax.swing.JPanel {
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
+        SP.setBackground(new java.awt.Color(20, 49, 73));
+        SP.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        SP.setForeground(java.awt.Color.white);
+        SP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/sp.png"))); // NOI18N
+        SP.setText("  Supplier & pelanggan ");
+        SP.setFocusPainted(false);
+        SP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Transaksi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Barang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dahsboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Transaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,11 +149,13 @@ public class Navigation extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(dahsboard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Barang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(341, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SP, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(267, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,9 +183,18 @@ public class Navigation extends javax.swing.JPanel {
         setActiveButton(dahsboard); // Mengatur tombol dahsboard sebagai tombol aktif
     }//GEN-LAST:event_dahsboardActionPerformed
 
+    private void SPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SPActionPerformed
+        // TODO add your handling code here:
+        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        mainFrame.changeContentPanel("sp");
+
+        setActiveButton(SP); // Mengatur tombol dahsboard sebagai tombol aktif
+    }//GEN-LAST:event_SPActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Barang;
+    private javax.swing.JButton SP;
     private javax.swing.JButton Transaksi;
     private javax.swing.JButton dahsboard;
     private javax.swing.JButton jButton1;
