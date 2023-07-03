@@ -32,9 +32,20 @@ public class SupplierPelanggan extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelbarang = new javax.swing.JTable();
+        btnEdit = new javax.swing.JButton();
+        prevButton = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
+        page = new javax.swing.JLabel();
+        count = new javax.swing.JLabel();
+        btnHapus = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -94,13 +105,153 @@ public class SupplierPelanggan extends javax.swing.JPanel {
 
         jPanel1.add(jPanel3);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel5.setLayout(new java.awt.GridLayout());
+
+        tabelbarang.setBackground(new java.awt.Color(20, 49, 73));
+        tabelbarang.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        tabelbarang.setForeground(new java.awt.Color(255, 255, 255));
+        tabelbarang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, "1", "SQS", "SQS", "QSQS", "SQS"},
+                {null, "2", "WD", "SQW", "QW", "QS"},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "NO", "TYPE", "NAMA", "ALAMAT", "NO TELP"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelbarang.setFocusable(false);
+        tabelbarang.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelbarang.setRowHeight(25);
+        tabelbarang.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        tabelbarang.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tabelbarang.setShowGrid(true);
+        tabelbarang.setSurrendersFocusOnKeystroke(true);
+        jScrollPane1.setViewportView(tabelbarang);
+        if (tabelbarang.getColumnModel().getColumnCount() > 0) {
+            tabelbarang.getColumnModel().getColumn(0).setMinWidth(0);
+            tabelbarang.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabelbarang.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
+
+        jPanel5.add(jScrollPane1);
+
+        btnEdit.setBackground(new java.awt.Color(255, 153, 51));
+        btnEdit.setForeground(new java.awt.Color(0, 0, 0));
+        btnEdit.setText("Edit  Data");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        prevButton.setText("jButton4");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+
+        nextButton.setText("jButton4");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
+
+        page.setText("jLabel2");
+
+        count.setText("jLabel2");
+
+        btnHapus.setBackground(new java.awt.Color(255, 102, 102));
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setText("Hapus Data");
+        btnHapus.setFocusPainted(false);
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+
+        btnTambah.setBackground(new java.awt.Color(0, 153, 153));
+        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
+        btnTambah.setText("Tambah Data");
+        btnTambah.setFocusPainted(false);
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(prevButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(page)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTambah)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHapus))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(count)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prevButton)
+                    .addComponent(nextButton)
+                    .addComponent(page)
+                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(count)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1131, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1131, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,7 +259,9 @@ public class SupplierPelanggan extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(92, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,13 +269,78 @@ public class SupplierPelanggan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+//        int selectedRow = tabelbarang.getSelectedRow();
+//        if (selectedRow == -1) {
+//            JOptionPane.showMessageDialog(this, "Pilih baris yang akan diedit", "Peringatan", JOptionPane.WARNING_MESSAGE);
+//            return; // Keluar dari fungsi setelah menampilkan pesan dialog
+//        }
+//        DefaultTableModel model = (DefaultTableModel) tabelbarang.getModel();
+//        int id = (int) model.getValueAt(selectedRow, 0);
+//        EditDialog editForm = new EditDialog(null, true, id);
+//        editForm.setVisible(true);
+//        loadDataBarang();
+//        updatePaginationButtons();
+//        render();
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        // TODO add your handling code here:
+//        if (currentPage > 1) {
+//            currentPage--;
+//            loadDataBarang();
+//            updatePaginationButtons();
+//        }
+    }//GEN-LAST:event_prevButtonActionPerformed
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        // TODO add your handling code here:
+//        int totalRows = barangController.getBarangCount();
+//        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
+//
+//        if (currentPage < totalPages) {
+//            currentPage++;
+//            loadDataBarang();
+//            updatePaginationButtons();
+//        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+//        deleteDataBarang();
+//        loadDataBarang();
+//        updatePaginationButtons();
+//        render();
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+//        AddDialog addDialog = new AddDialog(null, true);
+//        addDialog.setVisible(true);
+//        loadDataBarang(); // Refresh the table after adding data
+//        updatePaginationButtons();
+//        render();
+    }//GEN-LAST:event_btnTambahActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JLabel count;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JLabel page;
+    private javax.swing.JButton prevButton;
+    private javax.swing.JTable tabelbarang;
     // End of variables declaration//GEN-END:variables
 }

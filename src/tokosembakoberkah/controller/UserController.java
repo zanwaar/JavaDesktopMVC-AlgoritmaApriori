@@ -16,6 +16,21 @@ import tokosembakoberkah.util.DatabaseUtil;
  * @author Lenovo
  */
 public class UserController {
+        private static UserModel currentUser;
+
+    // ...
+
+    public static void setCurrentUser(UserModel user) {
+        currentUser = user;
+    }
+
+    public static UserModel getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void logout() {
+        currentUser = null;
+    }
     public UserModel login(String username, String password) {
         UserModel user = null;
 

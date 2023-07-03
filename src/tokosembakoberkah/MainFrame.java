@@ -10,20 +10,24 @@ package tokosembakoberkah;
  */
 import javax.swing.*;
 import java.awt.*;
+import tokosembakoberkah.controller.UserController;
+import tokosembakoberkah.model.UserModel;
 import tokosembakoberkah.view.Barang.BarangPanel;
 import tokosembakoberkah.view.Dashboard.DashboardPanel;
 import tokosembakoberkah.view.Navigation.Navigation;
 import tokosembakoberkah.view.SupplierPelanggan.SupplierPelanggan;
+import tokosembakoberkah.view.Transaksi.BarangKeluar;
+import tokosembakoberkah.view.Transaksi.BarangMasuk;
 import tokosembakoberkah.view.Transaksi.TransaksiPanel;
 
 public class MainFrame extends JFrame {
 
     private Navigation navigation;
     private JPanel contentPanel;
-
+    private final UserController userController;
     public MainFrame() {
         initComponents();
-
+userController = new UserController();
         // Buat objek Navigation
         navigation = new Navigation();
 
@@ -43,6 +47,7 @@ public class MainFrame extends JFrame {
         int dx = centerPoint.x - windowSize.width / 2;
         int dy = centerPoint.y - windowSize.height / 2;    
         setLocation(dx, dy);
+
     }
     private void initComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,6 +86,14 @@ public class MainFrame extends JFrame {
             case "barang":
                 BarangPanel barangPanel = new BarangPanel();
                 contentPanel = barangPanel;
+                break;
+            case "barangK":
+                BarangKeluar barangkeluar = new BarangKeluar();
+                contentPanel = barangkeluar;
+                break;
+            case "barangM":
+                BarangMasuk barangmasuk = new BarangMasuk();
+                contentPanel = barangmasuk;
                 break;
             case "sp":
                 SupplierPelanggan spPanel = new SupplierPelanggan();

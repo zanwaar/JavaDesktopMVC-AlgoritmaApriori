@@ -167,23 +167,23 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnLoginActionPerformed
 
     private void loginUser() {
-        String username = Username.getText();
-        String password = new String(Password.getPassword());
+    String username = Username.getText();
+    String password = new String(Password.getPassword());
 
-        UserModel user = userController.login(username, password);
+    UserModel user = userController.login(username, password);
 
-        if (user != null) {
-            // User login successful
-            // Do something, e.g., open the main application window
-               JOptionPane.showMessageDialog(null, "SUCCESS login: " );
-                 if (loginListener != null) {
-                loginListener.onLoginSuccess();
-            }
-        } else {
-            // User login failed
-               JOptionPane.showMessageDialog(null, "ERROR");
-            // Show error message or handle invalid credentials
+    if (user != null) {
+        // User login successful
+        UserController.setCurrentUser(user);
+        JOptionPane.showMessageDialog(null, "Login successful");
+
+        if (loginListener != null) {
+            loginListener.onLoginSuccess();
         }
+    } else {
+        // User login failed
+        JOptionPane.showMessageDialog(null, "Invalid username or password");
+    }
     }
     
       public void setLoginListener(LoginListener loginListener) {

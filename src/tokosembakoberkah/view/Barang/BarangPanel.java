@@ -8,7 +8,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import tokosembakoberkah.controller.BarangController;
+import tokosembakoberkah.controller.UserController;
 import tokosembakoberkah.model.BarangModel;
+import tokosembakoberkah.model.UserModel;
 
 /**
  *
@@ -20,19 +22,36 @@ public class BarangPanel extends javax.swing.JPanel {
      * Creates new form BarangPanel
      */
     private final BarangController barangController;
+    private final UserController userController;
     private int currentPage = 1;
     private final int rowsPerPage = 10;
-    
+
     public BarangPanel() {
         initComponents();
+        userController = new UserController();
         barangController = new BarangController();
         loadDataBarang();
         updatePaginationButtons();
-        count();
+        render();
     }
-    private void count() {
+    public static void logoutUser() {
+        UserController.logout();
+        System.exit(0);
+    }
+    private void render() {
         int total = barangController.getBarangCount();
         count.setText("Jumlah Data : " + total);
+        UserModel currentUser = userController.getCurrentUser();
+       
+        if (currentUser != null) {
+            System.out.println(currentUser.getNama());
+            getsessionNama.setText("Welcome " + currentUser.getNama());
+            // Gunakan username atau nama untuk tujuan yang sesuai
+            // ...
+        } else {
+            // Tidak ada pengguna yang sedang login
+            System.exit(0);
+        }
     }
 
     private void loadDataBarang() {
@@ -63,7 +82,7 @@ public class BarangPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        getsessionNama = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -106,7 +125,7 @@ public class BarangPanel extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("welcome januar samjid");
+        getsessionNama.setText("welcome januar samjid");
 
         jButton1.setText("logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +141,7 @@ public class BarangPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(397, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(getsessionNama, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -130,7 +149,7 @@ public class BarangPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(getsessionNama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -250,7 +269,7 @@ public class BarangPanel extends javax.swing.JPanel {
                         .addComponent(nextButton)
                         .addGap(18, 18, 18)
                         .addComponent(page)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
                         .addComponent(btnTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEdit)
@@ -303,6 +322,8 @@ public class BarangPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        logoutUser();
+        JOptionPane.showMessageDialog(this, "Berhasil Logout");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -318,7 +339,7 @@ public class BarangPanel extends javax.swing.JPanel {
         editForm.setVisible(true);
         loadDataBarang();
         updatePaginationButtons();
-        count();
+        render();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
@@ -347,7 +368,7 @@ public class BarangPanel extends javax.swing.JPanel {
         deleteDataBarang();
         loadDataBarang();
         updatePaginationButtons();
-        count();
+        render();
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void deleteDataBarang() {
@@ -374,7 +395,7 @@ public class BarangPanel extends javax.swing.JPanel {
         addDialog.setVisible(true);
         loadDataBarang(); // Refresh the table after adding data
         updatePaginationButtons();
-        count();
+        render();
     }//GEN-LAST:event_btnTambahActionPerformed
     private void updatePaginationButtons() {
         int totalRows = barangController.getBarangCount();
@@ -404,9 +425,9 @@ public class BarangPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel count;
+    private javax.swing.JLabel getsessionNama;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

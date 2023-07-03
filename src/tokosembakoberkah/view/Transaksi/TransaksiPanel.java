@@ -4,6 +4,13 @@
  */
 package tokosembakoberkah.view.Transaksi;
 
+import java.util.List;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import tokosembakoberkah.MainFrame;
+import tokosembakoberkah.controller.TransaksiController;
+import tokosembakoberkah.model.TransaksiModel;
+
 /**
  *
  * @author Lenovo
@@ -15,8 +22,30 @@ public class TransaksiPanel extends javax.swing.JPanel {
      */
     public TransaksiPanel() {
         initComponents();
+        loadData();
     }
+public void loadData() {
+    TransaksiController transaksiController = new TransaksiController();
+    List<TransaksiModel> transaksiList = transaksiController.getAllTransaksi();
 
+    DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+    model.setRowCount(0); // Menghapus data sebelumnya
+
+    for (TransaksiModel transaksi : transaksiList) {
+        Object[] rowData = {
+            transaksi.getId(),
+            transaksi.getId(),
+            transaksi.getStatus(),
+            transaksi.getTanggal(),
+            transaksi.getUsername(),
+            transaksi.getInvoice(),
+            transaksi.getSubTotal(),
+            transaksi.getIdSp()
+        };
+
+        model.addRow(rowData);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,9 +61,21 @@ public class TransaksiPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabeltransaksi = new javax.swing.JTable();
+        nextButton = new javax.swing.JButton();
+        prevButton = new javax.swing.JButton();
+        page = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -48,7 +89,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(403, Short.MAX_VALUE))
+                .addContainerGap(389, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,7 +117,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(429, Short.MAX_VALUE)
+                .addContainerGap(415, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -94,13 +135,147 @@ public class TransaksiPanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel3);
 
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel5.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("BARANG MASUK");
+        jPanel5.add(jLabel2, new java.awt.GridBagConstraints());
+
+        jPanel4.add(jPanel5);
+
+        jPanel6.setBackground(new java.awt.Color(20, 49, 73));
+        jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
+        jPanel6.setLayout(new java.awt.GridBagLayout());
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("BARANG KELUAR");
+        jPanel6.add(jLabel4, new java.awt.GridBagConstraints());
+
+        jPanel4.add(jPanel6);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
+
+        tabeltransaksi.setBackground(new java.awt.Color(20, 49, 73));
+        tabeltransaksi.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        tabeltransaksi.setForeground(new java.awt.Color(255, 255, 255));
+        tabeltransaksi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, "1", "SQS", null, "SQS", "QSQS", "SQS", null},
+                {null, "2", "WD", null, "SQW", "QW", "QS", null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "NO", "TRANSAKSI", "TANGGAL", "PETUGAS", "INVOICE", "JUMLAH TOTAL ", "SUPPLIER / PELANGGAN"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabeltransaksi.setFocusable(false);
+        tabeltransaksi.setGridColor(new java.awt.Color(255, 255, 255));
+        tabeltransaksi.setRowHeight(25);
+        tabeltransaksi.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        tabeltransaksi.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tabeltransaksi.setShowGrid(true);
+        tabeltransaksi.setSurrendersFocusOnKeystroke(true);
+        jScrollPane1.setViewportView(tabeltransaksi);
+        if (tabeltransaksi.getColumnModel().getColumnCount() > 0) {
+            tabeltransaksi.getColumnModel().getColumn(0).setMinWidth(0);
+            tabeltransaksi.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabeltransaksi.getColumnModel().getColumn(0).setMaxWidth(0);
+            tabeltransaksi.getColumnModel().getColumn(1).setMinWidth(50);
+            tabeltransaksi.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tabeltransaksi.getColumnModel().getColumn(1).setMaxWidth(50);
+        }
+
+        jPanel9.add(jScrollPane1);
+
+        nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
+
+        prevButton.setText("Prev");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+
+        page.setText("Total Page 0");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(prevButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(page)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(prevButton)
+                    .addComponent(nextButton)
+                    .addComponent(page))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1101, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,7 +283,11 @@ public class TransaksiPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(197, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,13 +295,58 @@ public class TransaksiPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        // TODO add your handling code here:
+//        int totalRows = barangController.getBarangCount();
+//        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
+//
+//        if (currentPage < totalPages) {
+//            currentPage++;
+//            loadDataBarang();
+//            updatePaginationButtons();
+//        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        // TODO add your handling code here:
+//        if (currentPage > 1) {
+//            currentPage--;
+//            loadDataBarang();
+//            updatePaginationButtons();
+//        }
+    }//GEN-LAST:event_prevButtonActionPerformed
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        // TODO add your handling code here:
+              MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        mainFrame.changeContentPanel("barangM");
+    }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        // TODO add your handling code here:
+              MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        mainFrame.changeContentPanel("barangK");
+    }//GEN-LAST:event_jPanel6MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JLabel page;
+    private javax.swing.JButton prevButton;
+    private javax.swing.JTable tabeltransaksi;
     // End of variables declaration//GEN-END:variables
 }
