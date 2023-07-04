@@ -5,13 +5,16 @@
 package tokosembakoberkah.view.Transaksi;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import tokosembakoberkah.MainFrame;
-import tokosembakoberkah.model.BarangModel;
+import tokosembakoberkah.controller.TransaksiController;
+import tokosembakoberkah.model.DetailTransaksiModel;
+import tokosembakoberkah.model.TransaksiModel;
 
 /**
  *
@@ -24,13 +27,13 @@ public class BarangMasuk extends javax.swing.JPanel {
      */
     public BarangMasuk() {
         initComponents();
-      
+
         updateNomorTransaksi();
         fieldHarga.setEditable(false);
         fieldSubTotal.setEditable(false);
         fieldNamaBarang.setEditable(false);
         fieldKategori.setEditable(false);
-          Date date = new Date();
+        Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Format tanggal (misalnya: 01/07/2023)
         String formattedDate = sdf.format(date);
         fieldTgl.setText(formattedDate);
@@ -424,7 +427,6 @@ public class BarangMasuk extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 //        logoutUser();
@@ -442,7 +444,46 @@ public class BarangMasuk extends javax.swing.JPanel {
         Tambahlist();
     }//GEN-LAST:event_TambahListActionPerformed
     private int nomorTransaksi = 1;
-private int nomorTransaksiAwal = 1;
+    private int nomorTransaksiAwal = 1;
+
+    private void simpan() {
+
+        String status = "Barang Masuk";
+        String invoice = "INV-K12346";
+        Date tanggal = new Date();
+        int idUser = Integer.parseInt("1");
+        int idSp = Integer.parseInt("20");
+        int subTotal = Integer.parseInt("50000");
+
+        TransaksiModel transaksi = new TransaksiModel(0, status, tanggal, idUser, invoice, subTotal, idSp);
+
+        // Mengisi data detail transaksi
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        List<DetailTransaksiModel> detailTransaksiList = new ArrayList<>();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int id = 0; // Isi dengan nilai id yang sesuai jika diperlukan
+            int idTransaksi = 0; // Isi dengan nilai idTransaksi yang sesuai jika diperlukan
+            String namaBarang = model.getValueAt(i, 1).toString();
+            String kategori = model.getValueAt(i, 2).toString();
+            String satuan = model.getValueAt(i, 3).toString();
+            int jumlah = Integer.parseInt(model.getValueAt(i, 4).toString());
+
+            DetailTransaksiModel detail = new DetailTransaksiModel(id, idTransaksi, namaBarang, kategori, satuan, jumlah);
+            detailTransaksiList.add(detail);
+        }
+
+        // Set daftar detail transaksi pada objek transaksi
+        transaksi.setDetailTransaksiList(detailTransaksiList);
+
+        // Membuat instance TransaksiController
+        TransaksiController transaksiController = new TransaksiController();
+
+        // Memanggil fungsi insertTransaksi untuk menyimpan data ke database
+        transaksiController.insertTransaksi(transaksi);
+
+    }
+
     private void Tambahlist() {
         String namaBarang = fieldNamaBarang.getText();
         String kategori = fieldKategori.getText();
@@ -459,92 +500,95 @@ private int nomorTransaksiAwal = 1;
         // Reset nilai pada field-field
         fieldNamaBarang.setText("");
         fieldKategori.setText("");
-         fieldHarga.setText("");
+        fieldHarga.setText("");
         fieldJumlah.setText("");
         fieldSubTotal.setText("");
     }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        simpan();
+        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        mainFrame.changeContentPanel("transaksi");
+        JOptionPane.showMessageDialog(this, "Transaksi Berhasil disimpan", "Success", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jButton6ActionPerformed
+
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        PilihBarangJDialog dialog = new PilihBarangJDialog(null, true);
+        String type = "BarangM";
+        PilihBarangJDialog dialog = new PilihBarangJDialog(null, true, type);
         dialog.setTransaksiPanel(this); // Mengatur objek TransaksiPanel di dalam dialog menjadi objek BarangMasuk yang sedang digunakan di GUI utama
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void fieldJumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldJumlahKeyReleased
         // TODO add your handling code here:
-            String jumlahText = fieldJumlah.getText();
-    
-    // Memeriksa apakah nilai jumlah valid (misalnya angka)
-    try {
-        int jumlah = Integer.parseInt(jumlahText);
-        int harga = Integer.parseInt(fieldHarga.getText());
-        
-        // Menghitung subtotal
-        int subtotal = jumlah * harga;
-        
-        // Mengatur nilai subtotal ke fieldSubTotal
-        fieldSubTotal.setText(String.valueOf(subtotal));
-    } catch (NumberFormatException e) {
-        // Penanganan jika nilai jumlah tidak valid
-        // Misalnya, menampilkan pesan kesalahan atau mengatur subtotal menjadi 0
-        fieldSubTotal.setText("0");
-    }
+        String jumlahText = fieldJumlah.getText();
+
+        // Memeriksa apakah nilai jumlah valid (misalnya angka)
+        try {
+            int jumlah = Integer.parseInt(jumlahText);
+            int harga = Integer.parseInt(fieldHarga.getText());
+
+            // Menghitung subtotal
+            int subtotal = jumlah * harga;
+
+            // Mengatur nilai subtotal ke fieldSubTotal
+            fieldSubTotal.setText(String.valueOf(subtotal));
+        } catch (NumberFormatException e) {
+            // Penanganan jika nilai jumlah tidak valid
+            // Misalnya, menampilkan pesan kesalahan atau mengatur subtotal menjadi 0
+            fieldSubTotal.setText("0");
+        }
     }//GEN-LAST:event_fieldJumlahKeyReleased
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         deleteData();
-         updateNomorTransaksi();
+        updateNomorTransaksi();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
-    
- 
-                                        
 
-private void deleteData() {
-    int selectedRow = tabeltransaksi.getSelectedRow();
-    DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
-    if (selectedRow != -1) {
-        int id = (int) model.getValueAt(selectedRow, 0);
-        int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+    private void deleteData() {
+        int selectedRow = tabeltransaksi.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        if (selectedRow != -1) {
+            int id = (int) model.getValueAt(selectedRow, 0);
+            int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
 
-        if (confirmation == JOptionPane.YES_OPTION) {
-            model.removeRow(selectedRow);
-            JOptionPane.showMessageDialog(this, "Data Berhasil dihapus", "Success", JOptionPane.PLAIN_MESSAGE);
-            updateNomorTransaksi();
+            if (confirmation == JOptionPane.YES_OPTION) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "Data Berhasil dihapus", "Success", JOptionPane.PLAIN_MESSAGE);
+                updateNomorTransaksi();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih baris data yang ingin dihapus.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Pilih baris data yang ingin dihapus.", "Warning", JOptionPane.WARNING_MESSAGE);
     }
-}
 
-private void updateNomorTransaksi() {
-    DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
-    int rowCount = model.getRowCount();
-    if (rowCount > 0) {
-        // Mendapatkan nomor transaksi terakhir
-        int lastTransaksi = (int) model.getValueAt(rowCount - 1, 0);
+    private void updateNomorTransaksi() {
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        int rowCount = model.getRowCount();
+        if (rowCount > 0) {
+            // Mendapatkan nomor transaksi terakhir
+            int lastTransaksi = (int) model.getValueAt(rowCount - 1, 0);
 
-        // Mengatur nomor transaksi berikutnya
-        nomorTransaksi = lastTransaksi + 1;
-    } else {
-        // Jika tidak ada data, kembali ke nomor transaksi awal
-        nomorTransaksi = nomorTransaksiAwal;
+            // Mengatur nomor transaksi berikutnya
+            nomorTransaksi = lastTransaksi + 1;
+        } else {
+            // Jika tidak ada data, kembali ke nomor transaksi awal
+            nomorTransaksi = nomorTransaksiAwal;
+        }
     }
-}
 
     public void setBarangData(String namaBarang, String kategori, int harga) {
         fieldNamaBarang.setText(namaBarang);
         fieldKategori.setText(kategori);
         fieldHarga.setText(String.valueOf(harga));
-     
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

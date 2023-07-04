@@ -19,11 +19,11 @@ public class TransaksiModel {
     private int idUser;
     private int idSp;
     private String invoice;
-    private double subTotal;
+    private int subTotal;
     private String username;
     private List<DetailTransaksiModel> detailTransaksiList;
 
-    public TransaksiModel(int id, String status, Date tanggal, int idUser, String invoice, double subTotal, int idSp) {
+    public TransaksiModel(int id, String status, Date tanggal, int idUser, String invoice, int subTotal, int idSp) {
         this.id = id;
         this.status = status;
         this.tanggal = tanggal;
@@ -33,6 +33,8 @@ public class TransaksiModel {
         this.subTotal = subTotal;
         this.detailTransaksiList = new ArrayList<>();
     }
+
+
 
     public int getId() {
         return id;
@@ -88,7 +90,7 @@ public class TransaksiModel {
         return subTotal;
     }
 
-    public void setSubTotal(double subTotal) {
+    public void setSubTotal(int subTotal) {
         this.subTotal = subTotal;
     }
 

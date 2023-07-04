@@ -20,21 +20,25 @@ public class PilihBarangJDialog extends javax.swing.JDialog {
      * Creates new form PilihBarangJDialog
      */
     private final BarangController barangController;
+    private String type;
     private int currentPage = 1;
     private final int rowsPerPage = 10;
-    public PilihBarangJDialog(java.awt.Frame parent, boolean modal) {
+
+    public PilihBarangJDialog(java.awt.Frame parent, boolean modal, String type) {
         super(parent, modal);
         initComponents();
         barangController = new BarangController();
+        this.type = type; // Perbaikan: Tambahkan titik koma di akhir baris ini
         loadDataBarang();
         updatePaginationButtons();
         render();
         setLocationRelativeTo(null);
     }
-        private void updatePaginationButtons() {
+
+    private void updatePaginationButtons() {
         int totalRows = barangController.getBarangCount();
         int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
-        System.out.println("total Rows: " + totalRows + "Total Page " + totalPages);
+        System.out.println("total Rows: " + totalRows + "Total Page " + totalPages + type);
         int prev = 1;
         int next = 0;
         page.setText("Total Pages " + totalPages);
@@ -53,6 +57,7 @@ public class PilihBarangJDialog extends javax.swing.JDialog {
             nextButton.setEnabled(true);
         }
     }
+
     private void render() {
         int total = barangController.getBarangCount();
         count.setText("Jumlah Data : " + total);
@@ -73,6 +78,7 @@ public class PilihBarangJDialog extends javax.swing.JDialog {
             nomorUrut++;
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -228,9 +234,14 @@ public class PilihBarangJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_nextButtonActionPerformed
     private BarangMasuk barangMasuk;
+    private BarangKeluar barangKeluar;
 
     public void setTransaksiPanel(BarangMasuk barangMasuk) {
         this.barangMasuk = barangMasuk;
+    }
+
+    public void setTransaksiPanelk(BarangKeluar barangKeluar) {
+        this.barangKeluar = barangKeluar;
     }
     private void PilihDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PilihDataActionPerformed
         // TODO add your handling code here:
@@ -247,13 +258,20 @@ public class PilihBarangJDialog extends javax.swing.JDialog {
             String namaBarang = (String) model.getValueAt(selectedRow, 3);
             String kategori = (String) model.getValueAt(selectedRow, 4);
             // Kirim data ke TransaksiPanel
-            barangMasuk.setBarangData(namaBarang, kategori, harga);
+
+            if ("BarangM".equals(type)) {
+                barangMasuk.setBarangData(namaBarang, kategori, harga);
+            } else {
+                barangKeluar.setBarangData(namaBarang, kategori, harga);
+            }
+
             dispose();
 
         } else {
             JOptionPane.showMessageDialog(this, "Pilih baris data dulu.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -284,7 +302,7 @@ public class PilihBarangJDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PilihBarangJDialog dialog = new PilihBarangJDialog(new javax.swing.JFrame(), true);
+                PilihBarangJDialog dialog = new PilihBarangJDialog(new javax.swing.JFrame(), true, "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

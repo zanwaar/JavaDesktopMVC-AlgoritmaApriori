@@ -7,7 +7,9 @@ package tokosembakoberkah.model;
 /**
  *
  * @author Lenovo
+ * 
  */
+
 public class DetailTransaksiModel {
     private int id;
     private int idTransaksi;

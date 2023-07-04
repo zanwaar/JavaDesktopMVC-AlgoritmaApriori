@@ -21,6 +21,11 @@ public class BarangKeluar extends javax.swing.JPanel {
      */
     public BarangKeluar() {
         initComponents();
+//               updateNomorTransaksi();
+        fieldHarga.setEditable(false);
+        fieldSubTotal.setEditable(false);
+        fieldNamaBarang.setEditable(false);
+        fieldKategori.setEditable(false);
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Format tanggal (misalnya: 01/07/2023)
         String formattedDate = sdf.format(date);
@@ -447,12 +452,18 @@ public class BarangKeluar extends javax.swing.JPanel {
     }//GEN-LAST:event_TambahListActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        PilihBarangJDialog dialog = new PilihBarangJDialog(null, true);
-//        dialog.setTransaksiPanel(this); // Mengatur objek TransaksiPanel di dalam dialog menjadi objek BarangMasuk yang sedang digunakan di GUI utama
+        // TODO add your handling code here:\
+        String type = "BarangK";
+        PilihBarangJDialog dialog = new PilihBarangJDialog(null, true, type);
+        dialog.setTransaksiPanelk(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+    public void setBarangData(String namaBarang, String kategori, int harga) {
+        fieldNamaBarang.setText(namaBarang);
+        fieldKategori.setText(kategori);
+        fieldHarga.setText(String.valueOf(harga));
 
+    }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
 //        deleteData();

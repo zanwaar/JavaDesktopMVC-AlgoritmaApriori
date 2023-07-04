@@ -42,7 +42,7 @@ public List<TransaksiModel> getAllTransaksi() {
             int idUser = resultSet.getInt("idUser");
             int idSp = resultSet.getInt("idSp");
             String invoice = resultSet.getString("invoice");
-            double subTotal = resultSet.getDouble("subTotal");
+            int subTotal = resultSet.getInt("subTotal");
             String username = resultSet.getString("username");
 
             TransaksiModel transaksi = new TransaksiModel(id, status, tanggal, idUser, invoice, subTotal, idSp);
