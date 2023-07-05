@@ -24,17 +24,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
           <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel1" max="32767" attributes="0"/>
                   <Component id="Barang" alignment="0" max="32767" attributes="0"/>
                   <Component id="dahsboard" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
                   <Component id="Transaksi" alignment="0" max="32767" attributes="0"/>
-                  <Component id="SP" alignment="0" max="32767" attributes="0"/>
+                  <Component id="SP" alignment="0" pref="285" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -145,7 +142,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="PT TOKO SEMBAKO BERKAH"/>
+        <Property name="text" type="java.lang.String" value="  TOKO SEMBAKO BERKAH"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
     </Component>

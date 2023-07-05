@@ -2,43 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package tokosembakoberkah.view.Barang;
-
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
-import javax.swing.JOptionPane;
-import tokosembakoberkah.controller.BarangController;
-import tokosembakoberkah.model.BarangModel;
+package tokosembakoberkah.view.SupplierPelanggan;
 
 /**
  *
  * @author Lenovo
  */
-public class EditDialog extends javax.swing.JDialog {
+public class AddJDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form EditDialog
+     * Creates new form AddJDialog
      */
-    private final int id;
-    private final BarangController barangController;
-    public EditDialog(java.awt.Frame parent, boolean modal, int id) {
+    public AddJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.id = id;
-        barangController = new BarangController();
-        System.out.println(id);
         initComponents();
-        initUI();
+           setLocationRelativeTo(null);
     }
-    private void initUI(){ 
-        
-        Dimension windowSize = getSize();
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Point centerPoint = ge.getCenterPoint();
-        int dx = centerPoint.x - windowSize.width / 2;
-        int dy = centerPoint.y - windowSize.height / 2;    
-        setLocation(dx, dy);
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,88 +33,64 @@ public class EditDialog extends javax.swing.JDialog {
         fieldKategori = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         fieldKategori1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         fieldKategori2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         fieldKategori3 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        fieldKategori5 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        fieldKategori4 = new javax.swing.JTextField();
-        btnedit = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel1.setText("Edit Data");
+        jLabel1.setText("Tambah Data");
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel5.setText("Kode Barang");
+        jLabel5.setText("Type");
 
         fieldKategori.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori.setText("LF-5K");
         fieldKategori.setToolTipText("");
         fieldKategori.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel6.setText("Nama Barang");
+        jLabel6.setText("Nama");
 
         fieldKategori1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori1.setText("GULA");
         fieldKategori1.setToolTipText("");
         fieldKategori1.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel7.setText("Alamat");
+
         fieldKategori2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori2.setText("Sembako");
         fieldKategori2.setToolTipText("");
         fieldKategori2.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         jLabel8.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel8.setText("Satuan");
+        jLabel8.setText("No Tlpn");
 
         fieldKategori3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori3.setText("Karung");
         fieldKategori3.setToolTipText("");
         fieldKategori3.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
-        jLabel10.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel10.setText("Harga Satuan");
-
-        fieldKategori5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori5.setText("120000");
-        fieldKategori5.setToolTipText("");
-        fieldKategori5.setMargin(new java.awt.Insets(2, 5, 2, 5));
-
-        jLabel9.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel9.setText("Stok");
-
-        fieldKategori4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori4.setText("220");
-        fieldKategori4.setToolTipText("");
-        fieldKategori4.setMargin(new java.awt.Insets(2, 5, 2, 5));
-
-        btnedit.setBackground(new java.awt.Color(0, 153, 153));
-        btnedit.setForeground(new java.awt.Color(255, 255, 255));
-        btnedit.setText("Edit");
-        btnedit.setFocusPainted(false);
-        btnedit.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(java.awt.Color.darkGray);
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Cancel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneditActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(java.awt.Color.darkGray);
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnTambah.setBackground(new java.awt.Color(0, 153, 153));
+        btnTambah.setForeground(new java.awt.Color(255, 255, 255));
+        btnTambah.setText("Simpan");
+        btnTambah.setFocusPainted(false);
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnTambahActionPerformed(evt);
             }
         });
-
-        jLabel7.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel7.setText("Kategori");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,26 +99,22 @@ public class EditDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fieldKategori, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                    .addComponent(fieldKategori, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                     .addComponent(fieldKategori1)
                     .addComponent(fieldKategori2)
                     .addComponent(fieldKategori3)
-                    .addComponent(fieldKategori4)
-                    .addComponent(fieldKategori5)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnedit))
+                        .addComponent(btnTambah))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -187,49 +139,35 @@ public class EditDialog extends javax.swing.JDialog {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldKategori3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldKategori5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldKategori4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-          String kode = "kode update";
-        String nama = "nama u";
-        String kategori = "kategori u";
-        String satuan = "satauan u";
-        int stok = 30;
-        int hargaSatuan = 30;
+//        String kode = "kode";
+//        String nama = "nama";
+//        String kategori = "kategori";
+//        String satuan = "satauan";
+//        int stok = Integer.parseInt("20");
+//        int hargaSatuan = Integer.parseInt("20");
+//
+//        BarangModel barang = new BarangModel(0, kode, nama, kategori, satuan, stok, hargaSatuan);
+//        barangController.addBarang(barang);
+//
+//        JOptionPane.showMessageDialog(AddDialog.this, "Barang berhasil ditambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+//        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        BarangModel barang = new BarangModel(id, kode, nama, kategori, satuan, stok, hargaSatuan);
-        boolean success = barangController.updateBarang(barang);
-
-        if (success) {
-            JOptionPane.showMessageDialog(null, "Barang berhasil diupdate", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Gagal mengupdate barang", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-     
-    }//GEN-LAST:event_btneditActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-      
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,22 +186,20 @@ public class EditDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
-            private int id;
             public void run() {
-                EditDialog dialog = new EditDialog(new javax.swing.JFrame(), true, id);
+                AddJDialog dialog = new AddJDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -276,20 +212,16 @@ public class EditDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnedit;
+    private javax.swing.JButton btnTambah;
     private javax.swing.JTextField fieldKategori;
     private javax.swing.JTextField fieldKategori1;
     private javax.swing.JTextField fieldKategori2;
     private javax.swing.JTextField fieldKategori3;
-    private javax.swing.JTextField fieldKategori4;
-    private javax.swing.JTextField fieldKategori5;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }

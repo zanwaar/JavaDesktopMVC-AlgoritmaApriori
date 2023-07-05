@@ -91,7 +91,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 30)); // NOI18N
         jLabel1.setForeground(java.awt.Color.darkGray);
-        jLabel1.setText("PT.TOKO SEMBAKO BERKAH");
+        jLabel1.setText("TOKO SEMBAKO BERKAH");
 
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel2.setForeground(java.awt.Color.darkGray);

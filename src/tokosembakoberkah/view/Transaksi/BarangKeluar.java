@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 import tokosembakoberkah.MainFrame;
 
 /**
@@ -448,9 +449,31 @@ public class BarangKeluar extends javax.swing.JPanel {
 
     private void TambahListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TambahListActionPerformed
         // TODO add your handling code here:
-//        Tambahlist();
+        Tambahlist();
     }//GEN-LAST:event_TambahListActionPerformed
+    private int nomorTransaksi = 1;
+    private int nomorTransaksiAwal = 1;
 
+    private void Tambahlist() {
+        String namaBarang = fieldNamaBarang.getText();
+        String kategori = fieldKategori.getText();
+        int jumlah = Integer.parseInt(fieldJumlah.getText());
+        int subTotal = Integer.parseInt(fieldSubTotal.getText());
+
+        // Tambahkan baris baru pada tabel transaksi
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        model.addRow(new Object[]{nomorTransaksi, namaBarang, kategori, jumlah, subTotal});
+
+        // Tingkatkan nomor transaksi
+        nomorTransaksi++;
+
+        // Reset nilai pada field-field
+        fieldNamaBarang.setText("");
+        fieldKategori.setText("");
+        fieldHarga.setText("");
+        fieldJumlah.setText("");
+        fieldSubTotal.setText("");
+    }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:\
         String type = "BarangK";
@@ -466,9 +489,41 @@ public class BarangKeluar extends javax.swing.JPanel {
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-//        deleteData();
-//        updateNomorTransaksi();
+        deleteData();
+        updateNomorTransaksi();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void deleteData() {
+        int selectedRow = tabeltransaksi.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        if (selectedRow != -1) {
+//            int id = (int) model.getValueAt(selectedRow, 0);
+            int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+
+            if (confirmation == JOptionPane.YES_OPTION) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "Data Berhasil dihapus", "Success", JOptionPane.PLAIN_MESSAGE);
+                updateNomorTransaksi();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih baris data yang ingin dihapus.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void updateNomorTransaksi() {
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        int rowCount = model.getRowCount();
+        if (rowCount > 0) {
+            // Mendapatkan nomor transaksi terakhir
+            int lastTransaksi = (int) model.getValueAt(rowCount - 1, 0);
+
+            // Mengatur nomor transaksi berikutnya
+            nomorTransaksi = lastTransaksi + 1;
+        } else {
+            // Jika tidak ada data, kembali ke nomor transaksi awal
+            nomorTransaksi = nomorTransaksiAwal;
+        }
+    }
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +39,8 @@ public class BarangMasuk extends javax.swing.JPanel {
         String formattedDate = sdf.format(date);
         fieldTgl.setText(formattedDate);
         fieldTgl.setEditable(false);
+        total.setEditable(false);
+
     }
 
     /**
@@ -80,10 +83,11 @@ public class BarangMasuk extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         fieldTgl = new javax.swing.JTextField();
+        total = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -261,7 +265,7 @@ public class BarangMasuk extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7.setLayout(new java.awt.GridLayout());
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         tabeltransaksi.setBackground(new java.awt.Color(20, 49, 73));
         tabeltransaksi.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -333,6 +337,10 @@ public class BarangMasuk extends javax.swing.JPanel {
         fieldTgl.setToolTipText("");
         fieldTgl.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
+        total.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        total.setToolTipText("");
+        total.setMargin(new java.awt.Insets(2, 5, 2, 5));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -346,7 +354,9 @@ public class BarangMasuk extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -377,11 +387,12 @@ public class BarangMasuk extends javax.swing.JPanel {
                             .addComponent(fieldTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton4)
-                            .addComponent(jButton6))
-                        .addGap(0, 30, Short.MAX_VALUE)))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton6)
+                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
 
@@ -417,7 +428,7 @@ public class BarangMasuk extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -442,6 +453,15 @@ public class BarangMasuk extends javax.swing.JPanel {
     private void TambahListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TambahListActionPerformed
         // TODO add your handling code here:
         Tambahlist();
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        int totalJumlah = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int jumlah = Integer.parseInt(model.getValueAt(i, 4).toString());
+            totalJumlah += jumlah;
+        }
+
+        String totalJumlahText = String.valueOf(totalJumlah);
+        total.setText(totalJumlahText);
     }//GEN-LAST:event_TambahListActionPerformed
     private int nomorTransaksi = 1;
     private int nomorTransaksiAwal = 1;
@@ -449,16 +469,17 @@ public class BarangMasuk extends javax.swing.JPanel {
     private void simpan() {
 
         String status = "Barang Masuk";
-        String invoice = "INV-K12346";
+        String invoice = generateUniqueInvoice();
         Date tanggal = new Date();
         int idUser = Integer.parseInt("1");
-        int idSp = Integer.parseInt("20");
-        int subTotal = Integer.parseInt("50000");
+        int idSp = Integer.parseInt("0");
+        int subTotal = Integer.parseInt(total.getText());
 
         TransaksiModel transaksi = new TransaksiModel(0, status, tanggal, idUser, invoice, subTotal, idSp);
 
         // Mengisi data detail transaksi
         DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+
         List<DetailTransaksiModel> detailTransaksiList = new ArrayList<>();
 
         for (int i = 0; i < model.getRowCount(); i++) {
@@ -511,7 +532,26 @@ public class BarangMasuk extends javax.swing.JPanel {
         mainFrame.changeContentPanel("transaksi");
         JOptionPane.showMessageDialog(this, "Transaksi Berhasil disimpan", "Success", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jButton6ActionPerformed
+    public static String generateUniqueInvoice() {
+        String prefix = "INV-BM-";
+        String timestamp = generateTimestamp();
+        String randomDigits = generateRandomDigits(5);
+        return prefix + timestamp + randomDigits;
+    }
 
+    public static String generateTimestamp() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        return dateFormat.format(new Date());
+    }
+
+    public static String generateRandomDigits(int length) {
+        StringBuilder sb = new StringBuilder(length);
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(random.nextInt(10));
+        }
+        return sb.toString();
+    }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -556,7 +596,7 @@ public class BarangMasuk extends javax.swing.JPanel {
         int selectedRow = tabeltransaksi.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
         if (selectedRow != -1) {
-            int id = (int) model.getValueAt(selectedRow, 0);
+//            int id = (int) model.getValueAt(selectedRow, 0);
             int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
 
             if (confirmation == JOptionPane.YES_OPTION) {
@@ -624,5 +664,6 @@ public class BarangMasuk extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabeltransaksi;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 }

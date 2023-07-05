@@ -4,6 +4,9 @@
  */
 package tokosembakoberkah.view.SupplierPelanggan;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Lenovo
@@ -35,7 +38,7 @@ public class SupplierPelanggan extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelbarang = new javax.swing.JTable();
+        tabel = new javax.swing.JTable();
         btnEdit = new javax.swing.JButton();
         prevButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
@@ -107,16 +110,16 @@ public class SupplierPelanggan extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
-        tabelbarang.setBackground(new java.awt.Color(20, 49, 73));
-        tabelbarang.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        tabelbarang.setForeground(new java.awt.Color(255, 255, 255));
-        tabelbarang.setModel(new javax.swing.table.DefaultTableModel(
+        tabel.setBackground(new java.awt.Color(20, 49, 73));
+        tabel.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        tabel.setForeground(new java.awt.Color(255, 255, 255));
+        tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "1", "SQS", "SQS", "QSQS", "SQS"},
-                {null, "2", "WD", "SQW", "QW", "QS"},
-                {null, null, null, null, null, null},
+                {null, "1", "Supplier", "PT Angkas", "Jln Mujair", "0812399900012"},
+                {null, "2", "Suppler", "PT MUJUR", "Jln Apui", "0852399901221"},
+                {null, null, "", null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -128,27 +131,22 @@ public class SupplierPelanggan extends javax.swing.JPanel {
             new String [] {
                 "id", "NO", "TYPE", "NAMA", "ALAMAT", "NO TELP"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelbarang.setFocusable(false);
-        tabelbarang.setGridColor(new java.awt.Color(255, 255, 255));
-        tabelbarang.setRowHeight(25);
-        tabelbarang.setSelectionBackground(new java.awt.Color(0, 153, 153));
-        tabelbarang.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        tabelbarang.setShowGrid(true);
-        tabelbarang.setSurrendersFocusOnKeystroke(true);
-        jScrollPane1.setViewportView(tabelbarang);
-        if (tabelbarang.getColumnModel().getColumnCount() > 0) {
-            tabelbarang.getColumnModel().getColumn(0).setMinWidth(0);
-            tabelbarang.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tabelbarang.getColumnModel().getColumn(0).setMaxWidth(0);
+        ));
+        tabel.setFocusable(false);
+        tabel.setGridColor(new java.awt.Color(255, 255, 255));
+        tabel.setRowHeight(25);
+        tabel.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        tabel.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tabel.setShowGrid(true);
+        tabel.setSurrendersFocusOnKeystroke(true);
+        jScrollPane1.setViewportView(tabel);
+        if (tabel.getColumnModel().getColumnCount() > 0) {
+            tabel.getColumnModel().getColumn(0).setMinWidth(0);
+            tabel.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabel.getColumnModel().getColumn(0).setMaxWidth(0);
+            tabel.getColumnModel().getColumn(1).setMinWidth(50);
+            tabel.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tabel.getColumnModel().getColumn(1).setMaxWidth(50);
         }
 
         jPanel5.add(jScrollPane1);
@@ -162,23 +160,23 @@ public class SupplierPelanggan extends javax.swing.JPanel {
             }
         });
 
-        prevButton.setText("jButton4");
+        prevButton.setText("prev");
         prevButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prevButtonActionPerformed(evt);
             }
         });
 
-        nextButton.setText("jButton4");
+        nextButton.setText("next");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextButtonActionPerformed(evt);
             }
         });
 
-        page.setText("jLabel2");
+        page.setText("page 0");
 
-        count.setText("jLabel2");
+        count.setText("Total 2");
 
         btnHapus.setBackground(new java.awt.Color(255, 102, 102));
         btnHapus.setForeground(new java.awt.Color(255, 255, 255));
@@ -278,8 +276,8 @@ public class SupplierPelanggan extends javax.swing.JPanel {
 //        }
 //        DefaultTableModel model = (DefaultTableModel) tabelbarang.getModel();
 //        int id = (int) model.getValueAt(selectedRow, 0);
-//        EditDialog editForm = new EditDialog(null, true, id);
-//        editForm.setVisible(true);
+        EditJDialog editForm = new EditJDialog(null, true);
+        editForm.setVisible(true);
 //        loadDataBarang();
 //        updatePaginationButtons();
 //        render();
@@ -308,16 +306,33 @@ public class SupplierPelanggan extends javax.swing.JPanel {
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-//        deleteDataBarang();
+        deleteData();
 //        loadDataBarang();
 //        updatePaginationButtons();
 //        render();
     }//GEN-LAST:event_btnHapusActionPerformed
+    private void deleteData() {
+        int selectedRow = tabel.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+        if (selectedRow != -1) {
 
+//            int id = (int) model.getValueAt(selectedRow, 0);
+
+            int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+
+            if (confirmation == JOptionPane.YES_OPTION) {
+//                barangController.deleteBarang(id);
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "Data Berhasil dihapus", "Success", JOptionPane.PLAIN_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih baris data yang ingin dihapus.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-//        AddDialog addDialog = new AddDialog(null, true);
-//        addDialog.setVisible(true);
+        AddJDialog addDialog = new AddJDialog(null, true);
+        addDialog.setVisible(true);
 //        loadDataBarang(); // Refresh the table after adding data
 //        updatePaginationButtons();
 //        render();
@@ -341,6 +356,6 @@ public class SupplierPelanggan extends javax.swing.JPanel {
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel page;
     private javax.swing.JButton prevButton;
-    private javax.swing.JTable tabelbarang;
+    private javax.swing.JTable tabel;
     // End of variables declaration//GEN-END:variables
 }
