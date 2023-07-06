@@ -4,8 +4,13 @@
  */
 package tokosembakoberkah.view.SupplierPelanggan;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import tokosembakoberkah.controller.EntitasController;
+import tokosembakoberkah.controller.UserController;
+import tokosembakoberkah.model.EntitasModel;
+import tokosembakoberkah.model.UserModel;
 
 /**
  *
@@ -16,8 +21,50 @@ public class SupplierPelanggan extends javax.swing.JPanel {
     /**
      * Creates new form SupplierPelanggan
      */
+    private final EntitasController entitasController;
+    private final UserController userController;
+    private int currentPage = 1;
+    private final int rowsPerPage = 10;
+
     public SupplierPelanggan() {
         initComponents();
+        entitasController = new EntitasController();
+        userController = new UserController();
+        loadData();
+        render();
+        updatePaginationButtons();
+    }
+
+    private void render() {
+        int total = entitasController.getCounts();
+        count.setText("Jumlah Data : " + total);
+        UserModel currentUser = userController.getCurrentUser();
+
+        if (currentUser != null) {
+            System.out.println(currentUser.getNama());
+            getsessionNama.setText("Welcome " + currentUser.getNama());
+            // Gunakan username atau nama untuk tujuan yang sesuai
+            // ...
+        } else {
+            // Tidak ada pengguna yang sedang login
+            System.exit(0);
+        }
+    }
+
+    private void loadData() {
+        DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+        model.setRowCount(0);
+
+        // Mendapatkan daftar barang berdasarkan halaman
+        List<EntitasModel> List = entitasController.getEntitasByPage(currentPage, rowsPerPage);
+
+        // Tambahkan data barang ke dalam tabel
+        int nomorUrut = (currentPage - 1) * rowsPerPage + 1;
+        for (EntitasModel list : List) {
+            Object[] rowData = {list.getId(), nomorUrut, list.getType(), list.getNama(), list.getAlamat(), list.getNoTelp()};
+            model.addRow(rowData);
+            nomorUrut++;
+        }
     }
 
     /**
@@ -33,7 +80,7 @@ public class SupplierPelanggan extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        getsessionNama = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -76,7 +123,7 @@ public class SupplierPelanggan extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("welcome januar samjid");
+        getsessionNama.setText("welcome januar samjid");
 
         jButton1.setText("logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +139,7 @@ public class SupplierPelanggan extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(430, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(getsessionNama, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -100,7 +147,7 @@ public class SupplierPelanggan extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(getsessionNama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -269,59 +316,79 @@ public class SupplierPelanggan extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-//        int selectedRow = tabelbarang.getSelectedRow();
-//        if (selectedRow == -1) {
-//            JOptionPane.showMessageDialog(this, "Pilih baris yang akan diedit", "Peringatan", JOptionPane.WARNING_MESSAGE);
-//            return; // Keluar dari fungsi setelah menampilkan pesan dialog
-//        }
-//        DefaultTableModel model = (DefaultTableModel) tabelbarang.getModel();
-//        int id = (int) model.getValueAt(selectedRow, 0);
-        EditJDialog editForm = new EditJDialog(null, true);
+        int selectedRow = tabel.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih baris yang akan diedit", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return; // Keluar dari fungsi setelah menampilkan pesan dialog
+        }
+        DefaultTableModel model = (DefaultTableModel) tabel.getModel();
+        int id = (int) model.getValueAt(selectedRow, 0);
+        EditJDialog editForm = new EditJDialog(null, true, id);
         editForm.setVisible(true);
-//        loadDataBarang();
-//        updatePaginationButtons();
-//        render();
+        loadData();
+        updatePaginationButtons();
+        render();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
         // TODO add your handling code here:
-//        if (currentPage > 1) {
-//            currentPage--;
-//            loadDataBarang();
-//            updatePaginationButtons();
-//        }
+        if (currentPage > 1) {
+            currentPage--;
+            loadData();
+            updatePaginationButtons();
+        }
     }//GEN-LAST:event_prevButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         // TODO add your handling code here:
-//        int totalRows = barangController.getBarangCount();
-//        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
-//
-//        if (currentPage < totalPages) {
-//            currentPage++;
-//            loadDataBarang();
-//            updatePaginationButtons();
-//        }
-    }//GEN-LAST:event_nextButtonActionPerformed
+        int totalRows = entitasController.getCounts();
+        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
 
+        if (currentPage < totalPages) {
+            currentPage++;
+            loadData();
+            updatePaginationButtons();
+        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+    private void updatePaginationButtons() {
+        int totalRows = entitasController.getCounts();
+        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
+        System.out.println("total Rows: " + totalRows + "Total Page " + totalPages);
+        int prev = 1;
+        int next = 0;
+        page.setText("Total Pages " + totalPages);
+        prevButton.setText("Page " + (currentPage - prev));
+        nextButton.setText("Page " + (currentPage + next));
+        if (currentPage <= 1) {
+            prevButton.setEnabled(false);
+
+        } else {
+            prevButton.setEnabled(true);
+        }
+
+        if (currentPage >= totalPages) {
+            nextButton.setEnabled(false);
+        } else {
+            nextButton.setEnabled(true);
+        }
+    }
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
         deleteData();
-//        loadDataBarang();
-//        updatePaginationButtons();
-//        render();
+        loadData();
+        updatePaginationButtons();
+        render();
     }//GEN-LAST:event_btnHapusActionPerformed
     private void deleteData() {
         int selectedRow = tabel.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabel.getModel();
         if (selectedRow != -1) {
 
-//            int id = (int) model.getValueAt(selectedRow, 0);
-
+            int id = (int) model.getValueAt(selectedRow, 0);
             int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
 
             if (confirmation == JOptionPane.YES_OPTION) {
-//                barangController.deleteBarang(id);
+                entitasController.deleteEntitas(id);
                 model.removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Data Berhasil dihapus", "Success", JOptionPane.PLAIN_MESSAGE);
             }
@@ -333,9 +400,9 @@ public class SupplierPelanggan extends javax.swing.JPanel {
         // TODO add your handling code here:
         AddJDialog addDialog = new AddJDialog(null, true);
         addDialog.setVisible(true);
-//        loadDataBarang(); // Refresh the table after adding data
-//        updatePaginationButtons();
-//        render();
+        loadData(); // Refresh the table after adding data
+        updatePaginationButtons();
+        render();
     }//GEN-LAST:event_btnTambahActionPerformed
 
 
@@ -344,9 +411,9 @@ public class SupplierPelanggan extends javax.swing.JPanel {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JLabel count;
+    private javax.swing.JLabel getsessionNama;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

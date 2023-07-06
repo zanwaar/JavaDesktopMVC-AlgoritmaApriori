@@ -9,7 +9,8 @@ package tokosembakoberkah.model;
  * @author Lenovo
  */
 public class UserModel {
-     private int id;
+
+    private int id;
     private String nama;
     private String username;
     private String password;
@@ -24,7 +25,6 @@ public class UserModel {
     }
 
     // Getter and Setter methods
-
     public int getId() {
         return id;
     }

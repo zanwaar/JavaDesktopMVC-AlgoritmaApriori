@@ -9,6 +9,7 @@ package tokosembakoberkah.model;
  * @author Lenovo
  */
 public class BarangModel {
+
     private int id;
     private String kode;
     private String nama;

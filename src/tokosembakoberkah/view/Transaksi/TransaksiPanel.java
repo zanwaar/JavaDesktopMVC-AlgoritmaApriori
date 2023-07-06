@@ -24,28 +24,30 @@ public class TransaksiPanel extends javax.swing.JPanel {
         initComponents();
         loadData();
     }
-public void loadData() {
-    TransaksiController transaksiController = new TransaksiController();
-    List<TransaksiModel> transaksiList = transaksiController.getAllTransaksi();
 
-    DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
-    model.setRowCount(0); // Menghapus data sebelumnya
+    public void loadData() {
+        TransaksiController transaksiController = new TransaksiController();
+        List<TransaksiModel> transaksiList = transaksiController.getAllTransaksi();
 
-    for (TransaksiModel transaksi : transaksiList) {
-        Object[] rowData = {
-            transaksi.getId(),
-            transaksi.getId(),
-            transaksi.getStatus(),
-            transaksi.getTanggal(),
-            transaksi.getUsername(),
-            transaksi.getInvoice(),
-            transaksi.getSubTotal(),
-            transaksi.getIdSp()
-        };
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        model.setRowCount(0); // Menghapus data sebelumnya
 
-        model.addRow(rowData);
+        for (TransaksiModel transaksi : transaksiList) {
+            Object[] rowData = {
+                transaksi.getId(),
+                transaksi.getId(),
+                transaksi.getStatus(),
+                transaksi.getTanggal(),
+                transaksi.getUsername(),
+                transaksi.getInvoice(),
+                transaksi.getSubTotal(),
+                transaksi.getIdSp()
+            };
+
+            model.addRow(rowData);
+        }
     }
-}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -318,13 +320,13 @@ public void loadData() {
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         // TODO add your handling code here:
-              MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
         mainFrame.changeContentPanel("barangM");
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         // TODO add your handling code here:
-              MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
         mainFrame.changeContentPanel("barangK");
     }//GEN-LAST:event_jPanel6MouseClicked
 

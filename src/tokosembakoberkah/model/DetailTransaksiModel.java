@@ -7,10 +7,10 @@ package tokosembakoberkah.model;
 /**
  *
  * @author Lenovo
- * 
+ *
  */
-
 public class DetailTransaksiModel {
+
     private int id;
     private int idTransaksi;
     private String namaBarang;
@@ -75,4 +75,3 @@ public class DetailTransaksiModel {
         this.jumlah = jumlah;
     }
 }
-

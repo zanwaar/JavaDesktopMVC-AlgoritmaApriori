@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tokosembakoberkah.controller;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,10 +17,10 @@ import tokosembakoberkah.util.DatabaseUtil;
  * @author Lenovo
  */
 public class UserController {
-        private static UserModel currentUser;
+
+    private static UserModel currentUser;
 
     // ...
-
     public static void setCurrentUser(UserModel user) {
         currentUser = user;
     }
@@ -31,6 +32,7 @@ public class UserController {
     public static void logout() {
         currentUser = null;
     }
+
     public UserModel login(String username, String password) {
         UserModel user = null;
 

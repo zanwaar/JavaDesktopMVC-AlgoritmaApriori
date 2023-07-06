@@ -34,15 +34,17 @@ public class BarangPanel extends javax.swing.JPanel {
         updatePaginationButtons();
         render();
     }
+
     public static void logoutUser() {
         UserController.logout();
         System.exit(0);
     }
+
     private void render() {
         int total = barangController.getBarangCount();
         count.setText("Jumlah Data : " + total);
         UserModel currentUser = userController.getCurrentUser();
-       
+
         if (currentUser != null) {
             System.out.println(currentUser.getNama());
             getsessionNama.setText("Welcome " + currentUser.getNama());
@@ -69,6 +71,7 @@ public class BarangPanel extends javax.swing.JPanel {
             nomorUrut++;
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -335,7 +338,7 @@ public class BarangPanel extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) tabelbarang.getModel();
         int id = (int) model.getValueAt(selectedRow, 0);
-        EditDialog editForm = new EditDialog(null, true, id);
+        EditJDialog editForm = new EditJDialog(null, true, id);
         editForm.setVisible(true);
         loadDataBarang();
         updatePaginationButtons();

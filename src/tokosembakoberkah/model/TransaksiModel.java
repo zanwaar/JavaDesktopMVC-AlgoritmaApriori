@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TransaksiModel {
+
     private int id;
     private String status;
     private Date tanggal;
@@ -33,8 +34,6 @@ public class TransaksiModel {
         this.subTotal = subTotal;
         this.detailTransaksiList = new ArrayList<>();
     }
-
-
 
     public int getId() {
         return id;
@@ -67,8 +66,7 @@ public class TransaksiModel {
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
-    
-    
+
     public int getIdSp() {
         return idSp;
     }
@@ -76,7 +74,6 @@ public class TransaksiModel {
     public void setIdSp(int idSp) {
         this.idSp = idSp;
     }
-
 
     public String getInvoice() {
         return invoice;

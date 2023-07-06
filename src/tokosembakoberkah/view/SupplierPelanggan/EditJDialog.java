@@ -4,6 +4,10 @@
  */
 package tokosembakoberkah.view.SupplierPelanggan;
 
+import javax.swing.JOptionPane;
+import tokosembakoberkah.controller.EntitasController;
+import tokosembakoberkah.model.EntitasModel;
+
 /**
  *
  * @author Lenovo
@@ -13,10 +17,16 @@ public class EditJDialog extends javax.swing.JDialog {
     /**
      * Creates new form EditJDialog
      */
-    public EditJDialog(java.awt.Frame parent, boolean modal) {
+    private final int id;
+    private final EntitasController entitasController;
+
+    public EditJDialog(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
-           setLocationRelativeTo(null);
+        entitasController = new EntitasController();
+        this.id = id;
+        setLocationRelativeTo(null);
+        setData();
     }
 
     /**
@@ -29,82 +39,68 @@ public class EditJDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        fieldKategori = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        fieldKategori1 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        fieldKategori2 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        fieldKategori3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        type = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        nama = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        alamat = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        notlpn = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setText("Edit Data");
 
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel5.setText("Type");
-
-        fieldKategori.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori.setText("Supplier");
-        fieldKategori.setToolTipText("");
-        fieldKategori.setMargin(new java.awt.Insets(2, 5, 2, 5));
-
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel6.setText("Nama");
-
-        fieldKategori1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori1.setText("Ahmad");
-        fieldKategori1.setToolTipText("");
-        fieldKategori1.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        fieldKategori1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldKategori1ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel7.setText("Alamat");
-
-        fieldKategori2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori2.setText("Jln Mujair");
-        fieldKategori2.setToolTipText("");
-        fieldKategori2.setMargin(new java.awt.Insets(2, 5, 2, 5));
-
-        jLabel8.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel8.setText("No Tlpn");
-
-        fieldKategori3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldKategori3.setText("0812399900012");
-        fieldKategori3.setToolTipText("");
-        fieldKategori3.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        fieldKategori3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldKategori3ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setBackground(java.awt.Color.darkGray);
+        jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancel");
+        jButton1.setText("Simpan");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        btnTambah.setBackground(new java.awt.Color(0, 153, 153));
+        btnTambah.setBackground(java.awt.Color.darkGray);
         btnTambah.setForeground(new java.awt.Color(255, 255, 255));
-        btnTambah.setText("Simpan");
+        btnTambah.setText("Cancel");
         btnTambah.setFocusPainted(false);
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTambahActionPerformed(evt);
             }
         });
+
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel5.setText("Type");
+
+        type.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        type.setToolTipText("");
+        type.setMargin(new java.awt.Insets(2, 5, 2, 5));
+
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel6.setText("Nama");
+
+        nama.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        nama.setToolTipText("");
+        nama.setMargin(new java.awt.Insets(2, 5, 2, 5));
+
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel7.setText("Alamat");
+
+        alamat.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        alamat.setToolTipText("");
+        alamat.setMargin(new java.awt.Insets(2, 5, 2, 5));
+
+        jLabel8.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel8.setText("No Tlpn");
+
+        notlpn.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        notlpn.setToolTipText("");
+        notlpn.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,15 +109,15 @@ public class EditJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fieldKategori, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
-                    .addComponent(fieldKategori1)
-                    .addComponent(fieldKategori2)
-                    .addComponent(fieldKategori3)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTambah))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(type, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                    .addComponent(nama)
+                    .addComponent(alamat)
+                    .addComponent(notlpn)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -137,59 +133,79 @@ public class EditJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldKategori1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldKategori2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldKategori3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(notlpn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setData() {
+        EntitasModel entitas = entitasController.getEntitasById(id);
+
+        if (entitas != null) {
+            // Menampilkan data ke dalam JTextField
+            type.setText(entitas.getType());
+            nama.setText(entitas.getNama());
+            alamat.setText(entitas.getAlamat());
+            notlpn.setText(entitas.getNoTelp());
+
+        } else {
+            // Tampilkan pesan jika entitas tidak ditemukan
+            JOptionPane.showMessageDialog(null, "Entitas tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-//        String kode = "kode";
-//        String nama = "nama";
-//        String kategori = "kategori";
-//        String satuan = "satauan";
-//        int stok = Integer.parseInt("20");
-//        int hargaSatuan = Integer.parseInt("20");
-//
-//        BarangModel barang = new BarangModel(0, kode, nama, kategori, satuan, stok, hargaSatuan);
-//        barangController.addBarang(barang);
-//
-//        JOptionPane.showMessageDialog(AddDialog.this, "Barang berhasil ditambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-//        dispose();
+        // Mendapatkan nilai dari JTextField
+        String Type = type.getText().trim();
+        String Nama = nama.getText().trim();
+        String Alamat = alamat.getText().trim();
+        String Notlpn = notlpn.getText().trim();
+
+        // Melakukan validasi tidak boleh kosong
+        if (Nama.isEmpty() || Type.isEmpty() || Alamat.isEmpty() || Notlpn.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Membuat instance EntitasModel
+        EntitasModel entitas = new EntitasModel(id, Type, Nama, Notlpn, Alamat);
+
+        // Memanggil method addEntitas pada EntitasController
+        boolean success = entitasController.updateEntitas(entitas);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Data entitas berhasil ditambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data entitas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTambahActionPerformed
-
-    private void fieldKategori1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldKategori1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldKategori1ActionPerformed
-
-    private void fieldKategori3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldKategori3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldKategori3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,7 +237,7 @@ public class EditJDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EditJDialog dialog = new EditJDialog(new javax.swing.JFrame(), true);
+                EditJDialog dialog = new EditJDialog(new javax.swing.JFrame(), true, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -234,16 +250,16 @@ public class EditJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField alamat;
     private javax.swing.JButton btnTambah;
-    private javax.swing.JTextField fieldKategori;
-    private javax.swing.JTextField fieldKategori1;
-    private javax.swing.JTextField fieldKategori2;
-    private javax.swing.JTextField fieldKategori3;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField nama;
+    private javax.swing.JTextField notlpn;
+    private javax.swing.JTextField type;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,7 +11,6 @@ package tokosembakoberkah;
 import javax.swing.*;
 import java.awt.*;
 import tokosembakoberkah.controller.UserController;
-import tokosembakoberkah.model.UserModel;
 import tokosembakoberkah.view.Barang.BarangPanel;
 import tokosembakoberkah.view.Dashboard.DashboardPanel;
 import tokosembakoberkah.view.Navigation.Navigation;
@@ -25,9 +24,10 @@ public class MainFrame extends JFrame {
     private Navigation navigation;
     private JPanel contentPanel;
     private final UserController userController;
+
     public MainFrame() {
         initComponents();
-userController = new UserController();
+        userController = new UserController();
         // Buat objek Navigation
         navigation = new Navigation();
 
@@ -39,16 +39,18 @@ userController = new UserController();
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         initUI();
     }
-    private void initUI(){ 
-        
+
+    private void initUI() {
+
         Dimension windowSize = getSize();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Point centerPoint = ge.getCenterPoint();
         int dx = centerPoint.x - windowSize.width / 2;
-        int dy = centerPoint.y - windowSize.height / 2;    
+        int dy = centerPoint.y - windowSize.height / 2;
         setLocation(dx, dy);
 
     }
+
     private void initComponents() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Main Frame");
@@ -68,11 +70,10 @@ userController = new UserController();
         add(contentPanel, BorderLayout.CENTER);
     }
 
-    
-        public void changeContentPanel(String panelName) {
+    public void changeContentPanel(String panelName) {
         // Hapus panel konten yang ada
         getContentPane().remove(contentPanel);
-        
+
         // Buat panel konten yang sesuai berdasarkan panelName
         switch (panelName) {
             case "dashboard":
@@ -102,15 +103,15 @@ userController = new UserController();
             default:
                 break;
         }
-        
+
         // Tambahkan panel konten baru ke MainFrame
         getContentPane().add(contentPanel, BorderLayout.CENTER);
-        
+
         // Perbarui tampilan MainFrame
         revalidate();
         repaint();
     }
-  
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MainFrame mainFrame = new MainFrame();
@@ -118,4 +119,3 @@ userController = new UserController();
         });
     }
 }
-

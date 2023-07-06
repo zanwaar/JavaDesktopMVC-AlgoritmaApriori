@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tokosembakoberkah.view.Login;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
@@ -23,21 +24,23 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     private UserController userController;
     private LoginListener loginListener;
+
     public LoginFrame() {
         initComponents();
         userController = new UserController();
-         initUI();
+        initUI();
     }
-    
-    private void initUI(){ 
-        
+
+    private void initUI() {
+
         Dimension windowSize = getSize();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Point centerPoint = ge.getCenterPoint();
         int dx = centerPoint.x - windowSize.width / 2;
-        int dy = centerPoint.y - windowSize.height / 2;    
+        int dy = centerPoint.y - windowSize.height / 2;
         setLocation(dx, dy);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,28 +170,29 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnLoginActionPerformed
 
     private void loginUser() {
-    String username = Username.getText();
-    String password = new String(Password.getPassword());
+        String username = Username.getText();
+        String password = new String(Password.getPassword());
 
-    UserModel user = userController.login(username, password);
+        UserModel user = userController.login(username, password);
 
-    if (user != null) {
-        // User login successful
-        UserController.setCurrentUser(user);
-        JOptionPane.showMessageDialog(null, "Login successful");
+        if (user != null) {
+            // User login successful
+            UserController.setCurrentUser(user);
+            JOptionPane.showMessageDialog(null, "Login successful");
 
-        if (loginListener != null) {
-            loginListener.onLoginSuccess();
+            if (loginListener != null) {
+                loginListener.onLoginSuccess();
+            }
+        } else {
+            // User login failed
+            JOptionPane.showMessageDialog(null, "Invalid username or password");
         }
-    } else {
-        // User login failed
-        JOptionPane.showMessageDialog(null, "Invalid username or password");
     }
-    }
-    
-      public void setLoginListener(LoginListener loginListener) {
+
+    public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
     }
+
     /**
      * @param args the command line arguments
      */

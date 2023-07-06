@@ -4,10 +4,6 @@
  */
 package tokosembakoberkah;
 
-import java.util.List;
-import tokosembakoberkah.controller.TransaksiController;
-import tokosembakoberkah.model.DetailTransaksiModel;
-import tokosembakoberkah.model.TransaksiModel;
 import tokosembakoberkah.view.Login.LoginFrame;
 
 /**
@@ -19,7 +15,6 @@ public class TokoSembakoBerkah {
     /**
      * @param args the command line arguments
      */
-    
     public static void main(String[] args) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {

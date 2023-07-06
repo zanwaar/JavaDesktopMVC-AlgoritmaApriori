@@ -12,20 +12,38 @@ import tokosembakoberkah.model.BarangModel;
  *
  * @author Lenovo
  */
-public class AddDialog extends javax.swing.JDialog {
+public class EditJDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form AddDialog
-     *
-     * @param parent
+     * Creates new form EditJDialog
      */
+    private final int id;
     private final BarangController barangController;
 
-    public AddDialog(java.awt.Frame parent, boolean modal) {
+    public EditJDialog(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
+        this.id = id;
         barangController = new BarangController();
         initComponents();
         setLocationRelativeTo(null);
+        setData();
+    }
+
+    public void setData() {
+        BarangModel barang = barangController.getBarangById(id);
+
+        if (barang != null) {
+            // Menampilkan data ke dalam JTextField
+            Fkode.setText(barang.getKode());
+            Fnama.setText(barang.getNama());
+            Fkategori.setText(barang.getKategori());
+            Fsatuan.setText(barang.getSatuan());
+            Fstok.setText(String.valueOf(barang.getStok()));
+            Fharga.setText(String.valueOf(barang.getHargaSatuan()));
+        } else {
+            // Tampilkan pesan jika barang tidak ditemukan
+            JOptionPane.showMessageDialog(null, "Barang tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -37,8 +55,6 @@ public class AddDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         Fkode = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -47,25 +63,15 @@ public class AddDialog extends javax.swing.JDialog {
         Fkategori = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         Fsatuan = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        Fstok = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         Fharga = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        Fstok = new javax.swing.JTextField();
         btnTambah = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel1.setText("Tambah Data");
-
-        jButton1.setBackground(new java.awt.Color(0, 153, 153));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Simpan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel5.setText("Kode Barang");
@@ -95,19 +101,19 @@ public class AddDialog extends javax.swing.JDialog {
         Fsatuan.setToolTipText("");
         Fsatuan.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
-        jLabel9.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel9.setText("Stok");
-
-        Fstok.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        Fstok.setToolTipText("");
-        Fstok.setMargin(new java.awt.Insets(2, 5, 2, 5));
-
         jLabel10.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel10.setText("Harga Satuan");
 
         Fharga.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         Fharga.setToolTipText("");
         Fharga.setMargin(new java.awt.Insets(2, 5, 2, 5));
+
+        jLabel9.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel9.setText("Stok");
+
+        Fstok.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        Fstok.setToolTipText("");
+        Fstok.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         btnTambah.setBackground(java.awt.Color.darkGray);
         btnTambah.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,6 +125,18 @@ public class AddDialog extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 153, 153));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Simpan");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel1.setText("Tambah Data");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,7 +144,7 @@ public class AddDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Fkode, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(Fkode, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
                     .addComponent(Fnama)
                     .addComponent(Fkategori)
                     .addComponent(Fsatuan)
@@ -182,11 +200,16 @@ public class AddDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnTambahActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -199,7 +222,7 @@ public class AddDialog extends javax.swing.JDialog {
 
         // Validasi tidak boleh kosong
         if (kode.isEmpty() || nama.isEmpty() || kategori.isEmpty() || satuan.isEmpty() || stokText.isEmpty() || hargaText.isEmpty()) {
-            JOptionPane.showMessageDialog(AddDialog.this, "Data tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Data tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -210,21 +233,16 @@ public class AddDialog extends javax.swing.JDialog {
             stok = Integer.parseInt(stokText);
             harga = Integer.parseInt(hargaText);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(AddDialog.this, "Stok dan Harga Satuan harus angka", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Stok dan Harga Satuan harus angka", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        BarangModel barang = new BarangModel(0, kode, nama, kategori, satuan, stok, harga);
-        barangController.addBarang(barang);
+        BarangModel barang = new BarangModel(id, kode, nama, kategori, satuan, stok, harga);
+        barangController.updateBarang(barang);
 
-        JOptionPane.showMessageDialog(AddDialog.this, "Barang berhasil ditambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Barang berhasil diubah", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_btnTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,20 +261,20 @@ public class AddDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddDialog dialog = new AddDialog(new javax.swing.JFrame(), true);
+                EditJDialog dialog = new EditJDialog(new javax.swing.JFrame(), true, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

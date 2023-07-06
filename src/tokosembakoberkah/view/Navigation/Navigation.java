@@ -19,24 +19,27 @@ public class Navigation extends javax.swing.JPanel {
      * Creates new form Navigation
      */
     private JButton activeButton; // Tombol aktif saat ini
+
     public Navigation() {
         initComponents();
         activeButton = dahsboard; // Menginisialisasi tombol aktif tes
         setActiveButton(dahsboard); // Mengatur warna latar belakang awal
     }
+
     private void setActiveButton(JButton button) {
         // Mengubah warna latar belakang tombol aktif sebelumnya (jika ada)
         if (activeButton != null) {
-            activeButton.setBackground(new Color(20,49,73));
+            activeButton.setBackground(new Color(20, 49, 73));
             activeButton.setForeground(Color.WHITE);
         }
 
         // Mengatur warna latar belakang tombol yang baru menjadi berbeda
-       button.setBackground(new Color(255, 153, 51));
- button.setForeground(Color.WHITE);
+        button.setBackground(new Color(255, 153, 51));
+        button.setForeground(Color.WHITE);
         // Mengatur tombol yang baru sebagai tombol aktif
         activeButton = button;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,7 +170,7 @@ public class Navigation extends javax.swing.JPanel {
 
     private void TransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransaksiActionPerformed
         // TODO add your handling code here:
-               MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
         mainFrame.changeContentPanel("transaksi");
 
         setActiveButton(Transaksi); // Mengatur tombol dahsboard sebagai tombol aktif
@@ -175,7 +178,7 @@ public class Navigation extends javax.swing.JPanel {
 
     private void dahsboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dahsboardActionPerformed
         // TODO add your handling code here:
-             MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
         mainFrame.changeContentPanel("dashboard");
 
         setActiveButton(dahsboard); // Mengatur tombol dahsboard sebagai tombol aktif
