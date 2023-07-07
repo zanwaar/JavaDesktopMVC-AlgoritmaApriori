@@ -124,7 +124,7 @@ public class TransaksiController {
             transaksiStatement.setInt(3, transaksi.getIdUser());
             transaksiStatement.setInt(4, transaksi.getIdSp());
             transaksiStatement.setString(5, transaksi.getInvoice());
-            transaksiStatement.setDouble(6, transaksi.getSubTotal());
+            transaksiStatement.setInt(6, transaksi.getSubTotal());
             transaksiStatement.executeUpdate();
 
             // Dapatkan ID transaksi yang baru saja diinsert

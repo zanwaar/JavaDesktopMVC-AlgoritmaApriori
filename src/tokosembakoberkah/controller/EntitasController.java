@@ -109,6 +109,43 @@ public class EntitasController {
         }
     }
 
+    public List<EntitasModel> getEntitasByPagew(int pageNumber, int pageSize, String type) {
+        List<EntitasModel> entitasList = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DatabaseUtil.getConnection();
+
+            int offset = (pageNumber - 1) * pageSize;
+            String query = "SELECT * FROM entitas WHERE type = ? ORDER BY id LIMIT " + offset + ", " + pageSize;
+
+            statement = connection.prepareStatement(query);
+            statement.setString(1, type);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nama = resultSet.getString("nama");
+                String no_telp = resultSet.getString("no_telp");
+                String alamat = resultSet.getString("alamat");
+                EntitasModel entitas = new EntitasModel(id, type, nama, no_telp, alamat);
+                entitasList.add(entitas);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getEntitasByPage: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error getEntitasByPage: " + e.getMessage());
+        } finally {
+            DatabaseUtil.closeResultSet(resultSet);
+            DatabaseUtil.closeStatement(statement);
+            DatabaseUtil.closeConnection(connection);
+        }
+
+        return entitasList;
+    }
+
     public EntitasModel getEntitasById(int id) {
         EntitasModel entitas = null;
 

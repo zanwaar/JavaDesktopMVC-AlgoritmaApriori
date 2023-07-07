@@ -85,7 +85,7 @@ public class TransaksiModel {
         this.invoice = invoice;
     }
 
-    public double getSubTotal() {
+    public int getSubTotal() {
         return subTotal;
     }
 

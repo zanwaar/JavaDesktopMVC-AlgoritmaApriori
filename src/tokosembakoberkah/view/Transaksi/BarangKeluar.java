@@ -44,6 +44,7 @@ public class BarangKeluar extends javax.swing.JPanel {
         fieldTgl.setText(formattedDate);
         fieldTgl.setEditable(false);
         total.setEditable(false);
+        Fpelanggan.setEditable(false);
     }
 
     /**
@@ -81,14 +82,16 @@ public class BarangKeluar extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabeltransaksi = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
-        fieldNamaBarang1 = new javax.swing.JTextField();
+        Fpelanggan = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         fieldTgl = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         total = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        Fsid = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(20, 49, 73));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
@@ -321,9 +324,9 @@ public class BarangKeluar extends javax.swing.JPanel {
             }
         });
 
-        fieldNamaBarang1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        fieldNamaBarang1.setToolTipText("");
-        fieldNamaBarang1.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Fpelanggan.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        Fpelanggan.setToolTipText("");
+        Fpelanggan.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         jButton7.setText("Plih");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -340,7 +343,7 @@ public class BarangKeluar extends javax.swing.JPanel {
         fieldTgl.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         jLabel8.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel8.setText("Supplier");
+        jLabel8.setText("Pelanggan");
 
         jButton6.setText("Simpan Data");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -353,6 +356,13 @@ public class BarangKeluar extends javax.swing.JPanel {
         total.setToolTipText("");
         total.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
+        jButton3.setText("clear nama");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -364,9 +374,11 @@ public class BarangKeluar extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(fieldNamaBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Fpelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -393,17 +405,18 @@ public class BarangKeluar extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton7)
-                            .addComponent(fieldNamaBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Fpelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
-                            .addComponent(fieldTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fieldTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3))
                         .addGap(5, 5, 5)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton6)
-                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton4))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -418,13 +431,16 @@ public class BarangKeluar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Fsid, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(362, 362, 362))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -437,7 +453,8 @@ public class BarangKeluar extends javax.swing.JPanel {
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(Fsid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(140, Short.MAX_VALUE))
@@ -541,6 +558,8 @@ public class BarangKeluar extends javax.swing.JPanel {
                     fieldJumlah.setText("");
                     fieldSubTotal.setText("");
                     Fid.setText("");
+                    Fsid.setText("");
+                    Fpelanggan.setText("");
                 } else {
                     // Tampilkan pesan bahwa barang tidak tersedia atau melebihi persediaan
                     JOptionPane.showMessageDialog(null, "Barang tidak tersedia atau melebihi persediaan", "Error", JOptionPane.ERROR_MESSAGE);
@@ -613,7 +632,16 @@ public class BarangKeluar extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        String type = "Pelanggan";
+        PilihOpsi dialog = new PilihOpsi(null, true, type);
+        dialog.setTransaksiPanelk(this); // Mengatur objek TransaksiPanel di dalam dialog menjadi objek BarangMasuk yang sedang digunakan di GUI utama
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    public void setData(String nama, int id) {
+        Fpelanggan.setText(nama);
+        Fsid.setText(String.valueOf(id));
+    }
 
     private void simpan() {
 
@@ -621,7 +649,13 @@ public class BarangKeluar extends javax.swing.JPanel {
         String invoice = generateUniqueInvoice();
         Date tanggal = new Date();
         int idUser = Integer.parseInt("1");
-        int idSp = Integer.parseInt("0");
+        int idSp;
+        String idSpText = Fsid.getText();
+        if (idSpText.isEmpty()) {
+            idSp = 0;
+        } else {
+            idSp = Integer.parseInt(idSpText);
+        }
         int subTotal = Integer.parseInt(total.getText());
 
         TransaksiModel transaksi = new TransaksiModel(0, status, tanggal, idUser, invoice, subTotal, idSp);
@@ -671,26 +705,40 @@ public class BarangKeluar extends javax.swing.JPanel {
     }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        simpan();
-        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
-        mainFrame.changeContentPanel("transaksi");
-        JOptionPane.showMessageDialog(this, "Transaksi Berhasil disimpan", "Success", JOptionPane.PLAIN_MESSAGE);
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Tabel kosong.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            simpan();
+            MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+            mainFrame.changeContentPanel("transaksi");
+            JOptionPane.showMessageDialog(this, "Transaksi Berhasil disimpan", "Success", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Fsid.setText("");
+        Fpelanggan.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Fid;
+    private javax.swing.JTextField Fpelanggan;
+    private javax.swing.JTextField Fsid;
     private javax.swing.JButton TambahList;
     private javax.swing.JTextField fieldHarga;
     private javax.swing.JTextField fieldJumlah;
     private javax.swing.JTextField fieldKategori;
     private javax.swing.JTextField fieldNamaBarang;
-    private javax.swing.JTextField fieldNamaBarang1;
     private javax.swing.JTextField fieldSubTotal;
     private javax.swing.JTextField fieldTgl;
     private javax.swing.JLabel getsessionNama;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

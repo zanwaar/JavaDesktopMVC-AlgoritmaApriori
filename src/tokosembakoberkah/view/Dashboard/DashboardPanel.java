@@ -54,7 +54,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         Bkeluar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -125,7 +124,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel5.setText("Frequent Itemsets");
+        jLabel5.setText("Hasil Frequent Itemsets");
 
         yourJList.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         yourJList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -137,12 +136,10 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Algoritma Apriori adalah algoritma yang digunakan untuk menemukan itemset yang sering muncul (frequent itemset) dalam kumpulan data transaksi. ");
 
-        jLabel9.setText("didefinisikan sebagai `0.2`, yang berarti bahwa itemset yang muncul setidaknya pada 20% transaksi keluar / pembelian akan dianggap sebagai frequent itemset");
+        jLabel9.setText("Nilai  MIN_SUPPORT adalah  `0.2`, yang berarti bahwa itemset yang muncul setidaknya pada 20%  dari transaksi keluar / pembelian yang dianggap sebagai frequent itemset");
 
         jLabel10.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel10.setText("Algoritma Apriori");
-
-        jLabel7.setText("Algoritma ini berdasarkan  prinsip bahwa subset dari frequent item set juga harus menjadi frequent itemset.");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -157,8 +154,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel10))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -170,17 +166,15 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel8.setLayout(new java.awt.GridLayout());
+        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
         Bkeluar.setBackground(new java.awt.Color(20, 49, 73));
         Bkeluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -267,7 +261,6 @@ public class DashboardPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

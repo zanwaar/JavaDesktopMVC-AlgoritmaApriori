@@ -345,7 +345,7 @@
                           <Data value="null"/>
                           <Data value="null"/>
                         </Column>
-                        <Column editable="false" title="JUMLAH TOTAL " type="java.lang.Object">
+                        <Column editable="false" title="TOTAL " type="java.lang.Object">
                           <Data value="SQS"/>
                           <Data value="QS"/>
                           <Data value="null"/>

@@ -62,7 +62,7 @@ public class AlgoritmaAprioriController {
 
         try {
             connection = DatabaseUtil.getConnection();
-            statement = connection.prepareStatement("SELECT * FROM transaksi");
+            statement = connection.prepareStatement("SELECT * FROM transaksi WHERE status='Barang Keluar'");
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -236,7 +236,7 @@ public class AlgoritmaAprioriController {
             Set<String> itemset = entry.getKey();
             int supportCount = entry.getValue();
 
-            String itemsetStr = itemset.toString() + " - Total Transaksi: " + supportCount;
+            String itemsetStr = itemset.toString() + " - Support Count: " + supportCount;
             listModel.addElement(itemsetStr);
         }
 

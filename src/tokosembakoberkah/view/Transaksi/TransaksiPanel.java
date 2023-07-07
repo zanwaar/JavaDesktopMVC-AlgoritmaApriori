@@ -220,7 +220,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "NO", "TRANSAKSI", "TANGGAL", "PETUGAS", "INVOICE", "JUMLAH TOTAL ", "SUPPLIER / PELANGGAN"
+                "id", "NO", "TRANSAKSI", "TANGGAL", "PETUGAS", "INVOICE", "TOTAL ", "SUPPLIER / PELANGGAN"
             }
         ) {
             boolean[] canEdit = new boolean [] {
