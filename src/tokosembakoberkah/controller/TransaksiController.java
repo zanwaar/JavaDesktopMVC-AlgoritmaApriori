@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import tokosembakoberkah.model.DetailTransaksiModel;
 import tokosembakoberkah.model.TransaksiModel;
 import tokosembakoberkah.util.DatabaseUtil;
@@ -22,7 +23,33 @@ import tokosembakoberkah.util.DatabaseUtil;
  */
 public class TransaksiController {
 
-    public List<TransaksiModel> getAllTransaksi() {
+    public int getCounts() {
+        int count = 0;
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DatabaseUtil.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT COUNT(*) FROM transaksi");
+
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getCount: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error getCount: " + e.getMessage());
+        } finally {
+            DatabaseUtil.closeResultSet(resultSet);
+            DatabaseUtil.closeStatement(statement);
+            DatabaseUtil.closeConnection(connection);
+        }
+
+        return count;
+    }
+
+    public List<TransaksiModel> getAllTransaksi(int pageNumber, int pageSize) {
         List<TransaksiModel> transaksiList = new ArrayList<>();
 
         Connection connection = null;
@@ -31,9 +58,18 @@ public class TransaksiController {
 
         try {
             connection = DatabaseUtil.getConnection();
-            statement = connection.prepareStatement("SELECT t.id, t.status, t.tanggal, t.idUser, t.idSp, t.invoice, t.subTotal, u.username "
+
+            int offset = (pageNumber - 1) * pageSize;
+            String query = "SELECT t.id, t.status, t.tanggal, t.idUser, t.idSp, t.invoice, t.subTotal, u.username, s.nama, s.type "
                     + "FROM transaksi t "
-                    + "INNER JOIN users u ON t.idUser = u.id");
+                    + "INNER JOIN users u ON t.idUser = u.id "
+                    + "INNER JOIN entitas s ON t.idSp = s.id "
+                    + "LIMIT ?, ?";
+
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, offset);
+            statement.setInt(2, pageSize);
+
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -45,9 +81,13 @@ public class TransaksiController {
                 String invoice = resultSet.getString("invoice");
                 int subTotal = resultSet.getInt("subTotal");
                 String username = resultSet.getString("username");
+                String namaSp = resultSet.getString("nama");
+                String typeSp = resultSet.getString("type");
 
                 TransaksiModel transaksi = new TransaksiModel(id, status, tanggal, idUser, invoice, subTotal, idSp);
                 transaksi.setUsername(username);
+                transaksi.setNamaSp(namaSp);
+                transaksi.setTypeSp(typeSp);
 
                 // Ambil informasi detail transaksi
                 List<DetailTransaksiModel> detailTransaksiList = getDetailTransaksiByTransaksiId(id);
@@ -102,7 +142,7 @@ public class TransaksiController {
                 detailStatement.setInt(1, transaksiId);
                 detailStatement.setString(2, detailTransaksi.getNamaBarang());
                 detailStatement.setString(3, detailTransaksi.getKategori());
-                detailStatement.setString(4, detailTransaksi.getSatuan());
+                detailStatement.setInt(4, detailTransaksi.getSatuan());
                 detailStatement.setInt(5, detailTransaksi.getJumlah());
                 detailStatement.executeUpdate();
             }
@@ -149,7 +189,7 @@ public class TransaksiController {
                 int idTransaksi = resultSet.getInt("id_transaksi");
                 String namaBarang = resultSet.getString("nama_barang");
                 String kategori = resultSet.getString("kategori");
-                String satuan = resultSet.getString("satuan");
+                int satuan = resultSet.getInt("satuan");
                 int jumlah = resultSet.getInt("jumlah");
 
                 DetailTransaksiModel detailTransaksi = new DetailTransaksiModel(id, idTransaksi, namaBarang, kategori, satuan, jumlah);

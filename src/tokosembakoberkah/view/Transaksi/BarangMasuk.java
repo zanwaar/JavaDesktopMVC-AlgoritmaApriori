@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import tokosembakoberkah.MainFrame;
+import tokosembakoberkah.controller.BarangController;
 import tokosembakoberkah.controller.TransaksiController;
+import tokosembakoberkah.model.BarangModel;
 import tokosembakoberkah.model.DetailTransaksiModel;
 import tokosembakoberkah.model.TransaksiModel;
 
@@ -26,9 +28,11 @@ public class BarangMasuk extends javax.swing.JPanel {
     /**
      * Creates new form BarangMasuk
      */
+    private final BarangController barangController;
+
     public BarangMasuk() {
         initComponents();
-
+        barangController = new BarangController();
         updateNomorTransaksi();
         fieldHarga.setEditable(false);
         fieldSubTotal.setEditable(false);
@@ -73,6 +77,7 @@ public class BarangMasuk extends javax.swing.JPanel {
         fieldSubTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        Fid = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabeltransaksi = new javax.swing.JTable();
@@ -210,6 +215,8 @@ public class BarangMasuk extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel7.setText("Nama Barang");
 
+        Fid.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -218,21 +225,25 @@ public class BarangMasuk extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fieldJumlah)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(fieldNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Fid, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(TambahList))
                     .addComponent(fieldHarga)
-                    .addComponent(jLabel5)
                     .addComponent(fieldKategori)
                     .addComponent(fieldSubTotal)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(fieldNamaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -261,7 +272,9 @@ public class BarangMasuk extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TambahList)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TambahList)
+                    .addComponent(Fid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -275,11 +288,11 @@ public class BarangMasuk extends javax.swing.JPanel {
 
             },
             new String [] {
-                "NO", "NAMA BARANG", "KATEGORI", "JUMLAH", "SUB TOTAL"
+                "NO", "NAMA BARANG", "KATEGORI", "JUMLAH", "SUB TOTAL", "id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -298,6 +311,9 @@ public class BarangMasuk extends javax.swing.JPanel {
             tabeltransaksi.getColumnModel().getColumn(0).setMinWidth(50);
             tabeltransaksi.getColumnModel().getColumn(0).setPreferredWidth(50);
             tabeltransaksi.getColumnModel().getColumn(0).setMaxWidth(50);
+            tabeltransaksi.getColumnModel().getColumn(5).setMinWidth(0);
+            tabeltransaksi.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tabeltransaksi.getColumnModel().getColumn(5).setMaxWidth(0);
         }
 
         jPanel7.add(jScrollPane1);
@@ -487,11 +503,28 @@ public class BarangMasuk extends javax.swing.JPanel {
             int idTransaksi = 0; // Isi dengan nilai idTransaksi yang sesuai jika diperlukan
             String namaBarang = model.getValueAt(i, 1).toString();
             String kategori = model.getValueAt(i, 2).toString();
-            String satuan = model.getValueAt(i, 3).toString();
+            int satuan = Integer.parseInt(model.getValueAt(i, 3).toString());
             int jumlah = Integer.parseInt(model.getValueAt(i, 4).toString());
+            int idb = Integer.parseInt(model.getValueAt(i, 5).toString());
+            // Mendapatkan data barang dari database berdasarkan nama barang
+            BarangModel barang = barangController.getBarangById(idb);
 
-            DetailTransaksiModel detail = new DetailTransaksiModel(id, idTransaksi, namaBarang, kategori, satuan, jumlah);
-            detailTransaksiList.add(detail);
+            if (barang != null) {
+                // Menambah stok barang sesuai dengan jumlah yang dimasukkan
+                int stokBarang = barang.getStok();
+                stokBarang += satuan;
+                barang.setStok(stokBarang);
+
+                // Simpan kembali informasi stok barang yang telah diperbarui ke database
+                barangController.updateBarang(barang);
+
+                DetailTransaksiModel detail = new DetailTransaksiModel(id, idTransaksi, namaBarang, kategori, satuan, jumlah);
+                detailTransaksiList.add(detail);
+            } else {
+                // Tampilkan pesan bahwa barang tidak ditemukan
+                JOptionPane.showMessageDialog(null, "Barang dengan nama " + namaBarang + " tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
 
         // Set daftar detail transaksi pada objek transaksi
@@ -510,20 +543,41 @@ public class BarangMasuk extends javax.swing.JPanel {
         String kategori = fieldKategori.getText();
         int jumlah = Integer.parseInt(fieldJumlah.getText());
         int subTotal = Integer.parseInt(fieldSubTotal.getText());
+        int id = Integer.parseInt(Fid.getText());
 
-        // Tambahkan baris baru pada tabel transaksi
-        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
-        model.addRow(new Object[]{nomorTransaksi, namaBarang, kategori, jumlah, subTotal});
+        DefaultTableModel model2 = (DefaultTableModel) tabeltransaksi.getModel();
 
-        // Tingkatkan nomor transaksi
-        nomorTransaksi++;
+        boolean isBarangExists = false;
 
-        // Reset nilai pada field-field
-        fieldNamaBarang.setText("");
-        fieldKategori.setText("");
-        fieldHarga.setText("");
-        fieldJumlah.setText("");
-        fieldSubTotal.setText("");
+        for (int i = 0; i < model2.getRowCount(); i++) {
+            int idb = Integer.parseInt(model2.getValueAt(i, 5).toString());
+
+            // Validasi data tidak boleh sama di dalam tabel
+            if (idb == id) {
+                isBarangExists = true;
+                break;
+            }
+        }
+
+        if (isBarangExists) {
+            // Tampilkan pesan bahwa barang sudah ditambahkan
+            JOptionPane.showMessageDialog(null, "Barang sudah ditambahkan", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+
+            model.addRow(new Object[]{nomorTransaksi, namaBarang, kategori, jumlah, subTotal, id});
+
+            // Tingkatkan nomor transaksi
+            nomorTransaksi++;
+
+            // Reset nilai pada field-field
+            fieldNamaBarang.setText("");
+            fieldKategori.setText("");
+            fieldHarga.setText("");
+            fieldJumlah.setText("");
+            fieldSubTotal.setText("");
+            Fid.setText("");
+        }
     }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -586,6 +640,15 @@ public class BarangMasuk extends javax.swing.JPanel {
         // TODO add your handling code here:
         deleteData();
         updateNomorTransaksi();
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        int totalJumlah = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int jumlah = Integer.parseInt(model.getValueAt(i, 4).toString());
+            totalJumlah += jumlah;
+        }
+
+        String totalJumlahText = String.valueOf(totalJumlah);
+        total.setText(totalJumlahText);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -624,14 +687,16 @@ public class BarangMasuk extends javax.swing.JPanel {
         }
     }
 
-    public void setBarangData(String namaBarang, String kategori, int harga) {
+    public void setBarangData(String namaBarang, String kategori, int harga, int id) {
         fieldNamaBarang.setText(namaBarang);
         fieldKategori.setText(kategori);
         fieldHarga.setText(String.valueOf(harga));
+        Fid.setText(String.valueOf(id));
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Fid;
     private javax.swing.JButton TambahList;
     private javax.swing.JTextField fieldHarga;
     private javax.swing.JTextField fieldJumlah;

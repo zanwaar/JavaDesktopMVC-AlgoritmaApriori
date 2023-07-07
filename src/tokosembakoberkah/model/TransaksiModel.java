@@ -22,6 +22,8 @@ public class TransaksiModel {
     private String invoice;
     private int subTotal;
     private String username;
+    private String namaSp;
+    private String typeSp;
     private List<DetailTransaksiModel> detailTransaksiList;
 
     public TransaksiModel(int id, String status, Date tanggal, int idUser, String invoice, int subTotal, int idSp) {
@@ -97,6 +99,22 @@ public class TransaksiModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getNamaSp() {
+        return namaSp;
+    }
+
+    public void setNamaSp(String namaSp) {
+        this.namaSp = namaSp;
+    }
+
+    public String getTypeSp() {
+        return typeSp;
+    }
+
+    public void setTypeSp(String typeSp) {
+        this.typeSp = typeSp;
     }
 
     public List<DetailTransaksiModel> getDetailTransaksiList() {

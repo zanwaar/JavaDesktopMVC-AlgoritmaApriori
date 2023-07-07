@@ -15,10 +15,10 @@ public class DetailTransaksiModel {
     private int idTransaksi;
     private String namaBarang;
     private String kategori;
-    private String satuan;
+    private int satuan;
     private int jumlah;
 
-    public DetailTransaksiModel(int id, int idTransaksi, String namaBarang, String kategori, String satuan, int jumlah) {
+    public DetailTransaksiModel(int id, int idTransaksi, String namaBarang, String kategori, int satuan, int jumlah) {
         this.id = id;
         this.idTransaksi = idTransaksi;
         this.namaBarang = namaBarang;
@@ -59,11 +59,11 @@ public class DetailTransaksiModel {
         this.kategori = kategori;
     }
 
-    public String getSatuan() {
+    public int getSatuan() {
         return satuan;
     }
 
-    public void setSatuan(String satuan) {
+    public void setSatuan(int satuan) {
         this.satuan = satuan;
     }
 

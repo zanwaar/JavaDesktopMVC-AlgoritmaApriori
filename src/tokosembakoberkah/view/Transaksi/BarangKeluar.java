@@ -5,11 +5,19 @@
 package tokosembakoberkah.view.Transaksi;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import tokosembakoberkah.MainFrame;
+import tokosembakoberkah.controller.BarangController;
+import tokosembakoberkah.controller.TransaksiController;
+import tokosembakoberkah.model.BarangModel;
+import tokosembakoberkah.model.DetailTransaksiModel;
+import tokosembakoberkah.model.TransaksiModel;
+import static tokosembakoberkah.view.Transaksi.BarangMasuk.generateUniqueInvoice;
 
 /**
  *
@@ -20,8 +28,11 @@ public class BarangKeluar extends javax.swing.JPanel {
     /**
      * Creates new form BarangKeluar
      */
+    private final BarangController barangController;
+
     public BarangKeluar() {
         initComponents();
+        barangController = new BarangController();
 //               updateNomorTransaksi();
         fieldHarga.setEditable(false);
         fieldSubTotal.setEditable(false);
@@ -32,6 +43,7 @@ public class BarangKeluar extends javax.swing.JPanel {
         String formattedDate = sdf.format(date);
         fieldTgl.setText(formattedDate);
         fieldTgl.setEditable(false);
+        total.setEditable(false);
     }
 
     /**
@@ -64,16 +76,18 @@ public class BarangKeluar extends javax.swing.JPanel {
         fieldKategori = new javax.swing.JTextField();
         fieldSubTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        Fid = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabeltransaksi = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         fieldNamaBarang1 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         fieldTgl = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        total = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(20, 49, 73));
@@ -200,6 +214,8 @@ public class BarangKeluar extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel6.setText("Sub Total");
 
+        Fid.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -224,6 +240,10 @@ public class BarangKeluar extends javax.swing.JPanel {
                     .addComponent(fieldSubTotal)
                     .addComponent(jLabel6))
                 .addContainerGap())
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(Fid, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,10 +272,12 @@ public class BarangKeluar extends javax.swing.JPanel {
                 .addComponent(fieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TambahList)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Fid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jPanel7.setLayout(new java.awt.GridLayout());
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         tabeltransaksi.setBackground(new java.awt.Color(20, 49, 73));
         tabeltransaksi.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -265,11 +287,11 @@ public class BarangKeluar extends javax.swing.JPanel {
 
             },
             new String [] {
-                "NO", "NAMA BARANG", "KATEGORI", "JUMLAH", "SUB TOTAL"
+                "NO", "NAMA BARANG", "KATEGORI", "JUMLAH", "SUB TOTAL", "id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -284,6 +306,11 @@ public class BarangKeluar extends javax.swing.JPanel {
         tabeltransaksi.setShowGrid(true);
         tabeltransaksi.setSurrendersFocusOnKeystroke(true);
         jScrollPane1.setViewportView(tabeltransaksi);
+        if (tabeltransaksi.getColumnModel().getColumnCount() > 0) {
+            tabeltransaksi.getColumnModel().getColumn(5).setMinWidth(0);
+            tabeltransaksi.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tabeltransaksi.getColumnModel().getColumn(5).setMaxWidth(0);
+        }
 
         jPanel7.add(jScrollPane1);
 
@@ -291,13 +318,6 @@ public class BarangKeluar extends javax.swing.JPanel {
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton6.setText("Simpan Data");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
             }
         });
 
@@ -322,6 +342,17 @@ public class BarangKeluar extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel8.setText("Supplier");
 
+        jButton6.setText("Simpan Data");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        total.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        total.setToolTipText("");
+        total.setMargin(new java.awt.Insets(2, 5, 2, 5));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -333,20 +364,22 @@ public class BarangKeluar extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(fieldNamaBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fieldTgl, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fieldTgl, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -368,8 +401,10 @@ public class BarangKeluar extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
-                            .addComponent(jButton6))
-                        .addGap(0, 30, Short.MAX_VALUE)))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton6)
+                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -405,7 +440,7 @@ public class BarangKeluar extends javax.swing.JPanel {
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -450,6 +485,15 @@ public class BarangKeluar extends javax.swing.JPanel {
     private void TambahListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TambahListActionPerformed
         // TODO add your handling code here:
         Tambahlist();
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        int totalJumlah = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int jumlah = Integer.parseInt(model.getValueAt(i, 4).toString());
+            totalJumlah += jumlah;
+        }
+
+        String totalJumlahText = String.valueOf(totalJumlah);
+        total.setText(totalJumlahText);
     }//GEN-LAST:event_TambahListActionPerformed
     private int nomorTransaksi = 1;
     private int nomorTransaksiAwal = 1;
@@ -459,21 +503,55 @@ public class BarangKeluar extends javax.swing.JPanel {
         String kategori = fieldKategori.getText();
         int jumlah = Integer.parseInt(fieldJumlah.getText());
         int subTotal = Integer.parseInt(fieldSubTotal.getText());
+        int id = Integer.parseInt(Fid.getText());
 
-        // Tambahkan baris baru pada tabel transaksi
-        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
-        model.addRow(new Object[]{nomorTransaksi, namaBarang, kategori, jumlah, subTotal});
+        DefaultTableModel model2 = (DefaultTableModel) tabeltransaksi.getModel();
 
-        // Tingkatkan nomor transaksi
-        nomorTransaksi++;
+        boolean isBarangExists = false;
 
-        // Reset nilai pada field-field
-        fieldNamaBarang.setText("");
-        fieldKategori.setText("");
-        fieldHarga.setText("");
-        fieldJumlah.setText("");
-        fieldSubTotal.setText("");
+        for (int i = 0; i < model2.getRowCount(); i++) {
+            int idb = Integer.parseInt(model2.getValueAt(i, 5).toString());
+
+            // Validasi data tidak boleh sama di dalam tabel
+            if (idb == id) {
+                isBarangExists = true;
+                break;
+            }
+        }
+
+        if (isBarangExists) {
+            // Tampilkan pesan bahwa barang sudah ditambahkan
+            JOptionPane.showMessageDialog(null, "Barang sudah ditambahkan", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            BarangModel barang = barangController.getBarangById(id);
+
+            if (barang != null) {
+                if (jumlah <= barang.getStok()) {
+                    DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+
+                    model.addRow(new Object[]{nomorTransaksi, namaBarang, kategori, jumlah, subTotal, id});
+
+                    // Tingkatkan nomor transaksi
+                    nomorTransaksi++;
+
+                    // Reset nilai pada field-field
+                    fieldNamaBarang.setText("");
+                    fieldKategori.setText("");
+                    fieldHarga.setText("");
+                    fieldJumlah.setText("");
+                    fieldSubTotal.setText("");
+                    Fid.setText("");
+                } else {
+                    // Tampilkan pesan bahwa barang tidak tersedia atau melebihi persediaan
+                    JOptionPane.showMessageDialog(null, "Barang tidak tersedia atau melebihi persediaan", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Tampilkan pesan bahwa barang tidak ditemukan
+                JOptionPane.showMessageDialog(null, "Barang tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:\
         String type = "BarangK";
@@ -481,23 +559,31 @@ public class BarangKeluar extends javax.swing.JPanel {
         dialog.setTransaksiPanelk(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
-    public void setBarangData(String namaBarang, String kategori, int harga) {
+    public void setBarangData(String namaBarang, String kategori, int harga, int id) {
         fieldNamaBarang.setText(namaBarang);
         fieldKategori.setText(kategori);
         fieldHarga.setText(String.valueOf(harga));
-
+        Fid.setText(String.valueOf(id));
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         deleteData();
         updateNomorTransaksi();
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+        int totalJumlah = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int jumlah = Integer.parseInt(model.getValueAt(i, 4).toString());
+            totalJumlah += jumlah;
+        }
+
+        String totalJumlahText = String.valueOf(totalJumlah);
+        total.setText(totalJumlahText);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void deleteData() {
         int selectedRow = tabeltransaksi.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
         if (selectedRow != -1) {
-//            int id = (int) model.getValueAt(selectedRow, 0);
             int confirmation = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
 
             if (confirmation == JOptionPane.YES_OPTION) {
@@ -525,16 +611,75 @@ public class BarangKeluar extends javax.swing.JPanel {
         }
     }
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void simpan() {
+
+        String status = "Barang Keluar";
+        String invoice = generateUniqueInvoice();
+        Date tanggal = new Date();
+        int idUser = Integer.parseInt("1");
+        int idSp = Integer.parseInt("0");
+        int subTotal = Integer.parseInt(total.getText());
+
+        TransaksiModel transaksi = new TransaksiModel(0, status, tanggal, idUser, invoice, subTotal, idSp);
+
+        // Mengisi data detail transaksi
+        DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
+
+        List<DetailTransaksiModel> detailTransaksiList = new ArrayList<>();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int id = 0; // Isi dengan nilai id yang sesuai jika diperlukan
+            int idTransaksi = 0; // Isi dengan nilai idTransaksi yang sesuai jika diperlukan
+            String namaBarang = model.getValueAt(i, 1).toString();
+            String kategori = model.getValueAt(i, 2).toString();
+            int satuan = Integer.parseInt(model.getValueAt(i, 3).toString());
+            int jumlah = Integer.parseInt(model.getValueAt(i, 4).toString());
+            int idb = Integer.parseInt(model.getValueAt(i, 5).toString());
+            // Mendapatkan data barang dari database berdasarkan nama barang
+            BarangModel barang = barangController.getBarangById(idb);
+
+            if (barang != null) {
+                // Menambah stok barang sesuai dengan jumlah yang dimasukkan
+                int stokBarang = barang.getStok();
+                stokBarang -= satuan;
+                barang.setStok(stokBarang);
+
+                // Simpan kembali informasi stok barang yang telah diperbarui ke database
+                barangController.updateBarang(barang);
+
+                DetailTransaksiModel detail = new DetailTransaksiModel(id, idTransaksi, namaBarang, kategori, satuan, jumlah);
+                detailTransaksiList.add(detail);
+            } else {
+                // Tampilkan pesan bahwa barang tidak ditemukan
+                JOptionPane.showMessageDialog(null, "Barang dengan nama " + namaBarang + " tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        // Set daftar detail transaksi pada objek transaksi
+        transaksi.setDetailTransaksiList(detailTransaksiList);
+
+        // Membuat instance TransaksiController
+        TransaksiController transaksiController = new TransaksiController();
+
+        // Memanggil fungsi insertTransaksi untuk menyimpan data ke database
+        transaksiController.insertTransaksi(transaksi);
+
+    }
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        simpan();
+        MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+        mainFrame.changeContentPanel("transaksi");
+        JOptionPane.showMessageDialog(this, "Transaksi Berhasil disimpan", "Success", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Fid;
     private javax.swing.JButton TambahList;
     private javax.swing.JTextField fieldHarga;
     private javax.swing.JTextField fieldJumlah;
@@ -567,5 +712,6 @@ public class BarangKeluar extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabeltransaksi;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 }

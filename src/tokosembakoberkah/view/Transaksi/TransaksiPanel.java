@@ -9,7 +9,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import tokosembakoberkah.MainFrame;
 import tokosembakoberkah.controller.TransaksiController;
+import tokosembakoberkah.controller.UserController;
 import tokosembakoberkah.model.TransaksiModel;
+import tokosembakoberkah.model.UserModel;
 
 /**
  *
@@ -20,31 +22,56 @@ public class TransaksiPanel extends javax.swing.JPanel {
     /**
      * Creates new form TransaksiPanel
      */
+    private final TransaksiController transaksiController;
+    private final UserController userController;
+    private int currentPage = 1;
+    private final int rowsPerPage = 10;
+
     public TransaksiPanel() {
         initComponents();
+        userController = new UserController();
+        transaksiController = new TransaksiController();
         loadData();
+        render();
+        updatePaginationButtons();
+    }
+
+    private void render() {
+        int total = transaksiController.getCounts();
+        count.setText("Jumlah Data : " + total);
+        UserModel currentUser = userController.getCurrentUser();
+
+        if (currentUser != null) {
+            System.out.println(currentUser.getNama());
+            getsessionNama.setText("Welcome " + currentUser.getNama());
+            // Gunakan username atau nama untuk tujuan yang sesuai
+            // ...
+        } else {
+            // Tidak ada pengguna yang sedang login
+            System.exit(0);
+        }
     }
 
     public void loadData() {
-        TransaksiController transaksiController = new TransaksiController();
-        List<TransaksiModel> transaksiList = transaksiController.getAllTransaksi();
+        List<TransaksiModel> transaksiList = transaksiController.getAllTransaksi(currentPage, rowsPerPage);
 
         DefaultTableModel model = (DefaultTableModel) tabeltransaksi.getModel();
         model.setRowCount(0); // Menghapus data sebelumnya
-
+        int nomorUrut = (currentPage - 1) * rowsPerPage + 1;
         for (TransaksiModel transaksi : transaksiList) {
             Object[] rowData = {
                 transaksi.getId(),
-                transaksi.getId(),
+                nomorUrut,
                 transaksi.getStatus(),
                 transaksi.getTanggal(),
                 transaksi.getUsername(),
                 transaksi.getInvoice(),
                 transaksi.getSubTotal(),
-                transaksi.getIdSp()
+                transaksi.getNamaSp()
             };
 
             model.addRow(rowData);
+            nomorUrut++;
         }
     }
 
@@ -61,7 +88,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        getsessionNama = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -75,6 +102,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
         nextButton = new javax.swing.JButton();
         prevButton = new javax.swing.JButton();
         page = new javax.swing.JLabel();
+        count = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
@@ -105,7 +133,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("welcome januar samjid");
+        getsessionNama.setText("welcome januar samjid");
 
         jButton1.setText("logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +149,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(415, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(getsessionNama, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -129,7 +157,7 @@ public class TransaksiPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(getsessionNama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -238,6 +266,8 @@ public class TransaksiPanel extends javax.swing.JPanel {
 
         page.setText("Total Page 0");
 
+        count.setText("Total 2");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -245,13 +275,16 @@ public class TransaksiPanel extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 1089, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(prevButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(page)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(prevButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nextButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(page))
+                            .addComponent(count))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -265,7 +298,9 @@ public class TransaksiPanel extends javax.swing.JPanel {
                     .addComponent(page))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(count)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -299,23 +334,45 @@ public class TransaksiPanel extends javax.swing.JPanel {
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         // TODO add your handling code here:
-//        int totalRows = barangController.getBarangCount();
-//        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
-//
-//        if (currentPage < totalPages) {
-//            currentPage++;
-//            loadDataBarang();
-//            updatePaginationButtons();
-//        }
+        int totalRows = transaksiController.getCounts();
+        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
+
+        if (currentPage < totalPages) {
+            currentPage++;
+            loadData();
+            updatePaginationButtons();
+        }
     }//GEN-LAST:event_nextButtonActionPerformed
 
+    private void updatePaginationButtons() {
+        int totalRows = transaksiController.getCounts();
+        int totalPages = (int) Math.ceil((double) totalRows / rowsPerPage);
+        System.out.println("total Rows: " + totalRows + "Total Page " + totalPages);
+        int prev = 1;
+        int next = 0;
+        page.setText("Total Pages " + totalPages);
+        prevButton.setText("Page " + (currentPage - prev));
+        nextButton.setText("Page " + (currentPage + next));
+        if (currentPage <= 1) {
+            prevButton.setEnabled(false);
+
+        } else {
+            prevButton.setEnabled(true);
+        }
+
+        if (currentPage >= totalPages) {
+            nextButton.setEnabled(false);
+        } else {
+            nextButton.setEnabled(true);
+        }
+    }
     private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
-        // TODO add your handling code here:
-//        if (currentPage > 1) {
-//            currentPage--;
-//            loadDataBarang();
-//            updatePaginationButtons();
-//        }
+//         TODO add your handling code here:
+        if (currentPage > 1) {
+            currentPage--;
+            loadData();
+            updatePaginationButtons();
+        }
     }//GEN-LAST:event_prevButtonActionPerformed
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
@@ -332,10 +389,11 @@ public class TransaksiPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel count;
+    private javax.swing.JLabel getsessionNama;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

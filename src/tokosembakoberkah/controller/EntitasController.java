@@ -36,8 +36,8 @@ public class EntitasController {
                 count = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            System.out.println("Error getBarangCount: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Error getBarangCount: " + e.getMessage());
+            System.out.println("Error getCount: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error getCount: " + e.getMessage());
         } finally {
             DatabaseUtil.closeResultSet(resultSet);
             DatabaseUtil.closeStatement(statement);

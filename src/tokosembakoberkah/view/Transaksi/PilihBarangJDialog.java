@@ -255,14 +255,15 @@ public class PilihBarangJDialog extends javax.swing.JDialog {
         if (selectedRow != -1) {
             // Ambil data yang ingin dikirim
             int harga = (int) model.getValueAt(selectedRow, 7);
+              int id = (int) model.getValueAt(selectedRow, 0);
             String namaBarang = (String) model.getValueAt(selectedRow, 3);
             String kategori = (String) model.getValueAt(selectedRow, 4);
             // Kirim data ke TransaksiPanel
 
             if ("BarangM".equals(type)) {
-                barangMasuk.setBarangData(namaBarang, kategori, harga);
+                barangMasuk.setBarangData(namaBarang, kategori, harga, id);
             } else {
-                barangKeluar.setBarangData(namaBarang, kategori, harga);
+                barangKeluar.setBarangData(namaBarang, kategori, harga, id);
             }
 
             dispose();
