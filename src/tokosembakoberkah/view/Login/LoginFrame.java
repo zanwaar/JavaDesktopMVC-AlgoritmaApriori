@@ -4,7 +4,6 @@
  */
 package tokosembakoberkah.view.Login;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -17,6 +16,8 @@ import tokosembakoberkah.model.UserModel;
  *
  * @author Lenovo
  */
+
+
 public class LoginFrame extends javax.swing.JFrame {
 
     /**

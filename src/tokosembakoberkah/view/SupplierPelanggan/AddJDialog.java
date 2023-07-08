@@ -158,34 +158,35 @@ public class AddJDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
- // Mendapatkan nilai dari JTextField
-    String Type = type.getText().trim();
-    String Nama = nama.getText().trim();
-    String Alamat = alamat.getText().trim();
-    String Notlpn = notlpn.getText().trim();
+        // Mendapatkan nilai dari JTextField
+        String Type = type.getText().trim();
+        String Nama = nama.getText().trim();
+        String Alamat = alamat.getText().trim();
+        String Notlpn = notlpn.getText().trim();
 
-    // Melakukan validasi tidak boleh kosong
-    if (Nama.isEmpty() || Type.isEmpty() || Alamat.isEmpty() || Notlpn.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Semua field harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        // Melakukan validasi tidak boleh kosong
+        if (Nama.isEmpty() || Type.isEmpty() || Alamat.isEmpty() || Notlpn.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    // Membuat instance EntitasModel
-    EntitasModel entitas = new EntitasModel(0, Type, Nama, Notlpn, Alamat);
+        // Membuat instance EntitasModel
+        EntitasModel entitas = new EntitasModel(0, Type, Nama, Notlpn, Alamat);
 
-    // Memanggil method addEntitas pada EntitasController
-    boolean success = entitasController.addEntitas(entitas);
+        // Memanggil method addEntitas pada EntitasController
+        boolean success = entitasController.addEntitas(entitas);
 
-    if (success) {
-        JOptionPane.showMessageDialog(this, "Data entitas berhasil ditambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-    } else {
-        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data entitas", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Data entitas berhasil ditambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan data entitas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:  
+        dispose();
     }//GEN-LAST:event_btnTambahActionPerformed
 
     /**

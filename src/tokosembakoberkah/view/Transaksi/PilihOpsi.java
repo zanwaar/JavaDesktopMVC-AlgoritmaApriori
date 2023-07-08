@@ -265,7 +265,11 @@ public class PilihOpsi extends javax.swing.JDialog {
             int id = (int) model.getValueAt(selectedRow, 0);
             String nama = (String) model.getValueAt(selectedRow, 3);
             // Kirim data ke TransaksiPanel
-            barangMasuk.setData(nama, id);
+            if ("Supplier".equals(type)) {
+                barangMasuk.setData(nama, id);
+            } else {
+                barangKeluar.setData(nama, id);
+            }
             dispose();
 
         } else {

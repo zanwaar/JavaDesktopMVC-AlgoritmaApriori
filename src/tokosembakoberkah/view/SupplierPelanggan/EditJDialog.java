@@ -205,6 +205,7 @@ public class EditJDialog extends javax.swing.JDialog {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnTambahActionPerformed
 
     /**
