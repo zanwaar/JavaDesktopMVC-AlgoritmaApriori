@@ -197,7 +197,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
-        Bkeluar.setBackground(new java.awt.Color(20, 49, 73));
+        Bkeluar.setBackground(new java.awt.Color(4, 94, 193));
         Bkeluar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Bkeluar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -213,7 +213,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         jPanel8.add(Bkeluar);
 
-        Bmasuk.setBackground(new java.awt.Color(255, 153, 51));
+        Bmasuk.setBackground(new java.awt.Color(211, 35, 66));
         Bmasuk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Bmasuk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

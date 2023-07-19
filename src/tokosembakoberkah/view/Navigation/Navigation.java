@@ -57,7 +57,7 @@ public class Navigation extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         SP = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 153, 153));
+        setBackground(new java.awt.Color(34, 185, 119));
         setToolTipText("");
 
         dahsboard.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
@@ -98,14 +98,15 @@ public class Navigation extends javax.swing.JPanel {
         });
 
         jButton1.setBackground(new java.awt.Color(246, 246, 246));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/inventory.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/icon/material-management.png"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
 
+        jLabel1.setBackground(java.awt.Color.darkGray);
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("  TOKO SEMBAKO BERKAH");
+        jLabel1.setText("    TOKO SUMBER REZEKI");
         jLabel1.setFocusable(false);
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
