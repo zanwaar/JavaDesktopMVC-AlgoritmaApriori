@@ -157,7 +157,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="TOKO SEMBAKO BERKAH"/>
+                <Property name="text" type="java.lang.String" value="TOKO SUMBER REZEKI"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
