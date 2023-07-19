@@ -21,14 +21,18 @@ deafult namaDatabse : db_tokosembakoberkah
         password    : 
 
 ## cuplikan beberapa Screenshoot
+## Halaman Login
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/login.JPG)
 
+## Dashboard
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/dashboard.JPG)
 
+## Data Transaksi
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/transaksi.JPG)
 
+## Transaksi Keluar
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/tskeluar.JPG)
 
+## Transaksi Masuk
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/tsmasuk.JPG)
 
-![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/tskeluar.JPG)
