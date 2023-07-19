@@ -5,7 +5,9 @@ Assalamu'alikum...
 <br/>
 Proyek ini menggunakan implementasi MVC untuk memudahkan pengembang dalam penerapan Algoritma Apriori pada transaksi barang keluar.
 <br/>
-Algoritma Apriori adalah algoritma yang digunakan untuk menemukan item-item yang sering muncul bersama dalam sebuah kumpulan data transaksi atau dataset. Algoritma ini banyak digunakan dalam analisis asosiasi, yang mencoba menemukan hubungan antara item-item dalam dataset.
+Algoritma Apriori adalah algoritma yang digunakan untuk menemukan item-item yang sering muncul bersama dalam sebuah kumpulan data transaksi atau dataset. 
+<br/>
+Algoritma ini banyak digunakan dalam analisis asosiasi, yang mencoba menemukan hubungan antara item-item dalam dataset.
  
 ## Setup Libraries
 
@@ -20,13 +22,13 @@ deafult namaDatabse : db_tokosembakoberkah
         user        : root
         password    : 
 
-## Screenshoot
+## cuplikan beberapa Screenshoot
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/login.JPG)
 
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/dashboard.JPG)
 
-![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/masterbarang.JPG)
-
-![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/sp.JPG)
-
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/transaksi.JPG)
+
+![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/tskeluar.JPG)
+
+![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/tsmasuk.JPG)
