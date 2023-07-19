@@ -3,7 +3,7 @@
 ## Introduction
 Assalamu'alikum...
 <br/>
-Project ini mengunkan implemntasi mvc untuk memudahkan pegembagan dan Penerapan Algoritma Apriori pada Transaksi Barang Keluar
+Proyek ini menggunakan implementasi MVC untuk memudahkan pengembang dalam penerapan Algoritma Apriori pada transaksi barang keluar.
 <br/>
 Algoritma Apriori adalah algoritma yang digunakan untuk menemukan item-item yang sering muncul bersama dalam sebuah kumpulan data transaksi atau dataset. Algoritma ini banyak digunakan dalam analisis asosiasi, yang mencoba menemukan hubungan antara item-item dalam dataset.
  
