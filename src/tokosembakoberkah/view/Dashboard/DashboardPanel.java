@@ -29,10 +29,21 @@ public class DashboardPanel extends javax.swing.JPanel {
         render();
         userController = new UserController();
 
+        // Menampilkan data detail transaksi
+        aprioriController.showTransactionDetails();
+
+        // Menghitung itemset frekuensi tinggi dan aturan asosiasi
+        DefaultListModel<String> frequentItemsetsWithConfidence = aprioriController.generateFrequentItemsetsWithConfidence();
+
+        // Menampilkan hasil itemset frekuensi tinggi dan aturan asosiasi
+        System.out.println("\nHasil Itemset Frekuensi Tinggi dan Aturan Asosiasi:");
+        for (int i = 0; i < frequentItemsetsWithConfidence.getSize(); i++) {
+            System.out.println(frequentItemsetsWithConfidence.getElementAt(i));
+        }
     }
 
     private void render() {
-        DefaultListModel<String> listModel = aprioriController.generateFrequentItemsets();
+        DefaultListModel<String> listModel = aprioriController.generateFrequentItemsetsWithConfidence();
         yourJList.setModel(listModel);
         UserModel currentUser = userController.getCurrentUser();
 

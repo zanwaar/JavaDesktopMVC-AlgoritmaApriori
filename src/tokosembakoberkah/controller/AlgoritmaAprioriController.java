@@ -27,6 +27,7 @@ import tokosembakoberkah.util.DatabaseUtil;
 public class AlgoritmaAprioriController {
 
     private static final double MIN_SUPPORT = 0.2; // Nilai minimum support
+    private static final double MIN_CONFIDENCE = 0.5; // Nilai minimum support
 
     public List<String> getAllBarang() {
         List<String> barangList = new ArrayList<>();
@@ -210,6 +211,36 @@ public class AlgoritmaAprioriController {
         return candidateItemsets;
     }
 
+    private double calculateConfidence(Set<String> antecedent, Set<String> consequent, Map<Set<String>, Integer> frequentItemsets) {
+        Set<String> union = new HashSet<>(antecedent);
+        union.addAll(consequent);
+
+        int supportAntecedent = frequentItemsets.get(antecedent);
+        int supportUnion = frequentItemsets.get(union);
+
+        return (double) supportUnion / supportAntecedent;
+    }
+
+    private List<Set<String>> generateSubsets(Set<String> itemset) {
+        List<Set<String>> subsets = new ArrayList<>();
+        int n = itemset.size();
+        String[] itemArray = itemset.toArray(new String[0]);
+
+        for (int i = 1; i < (1 << n); i++) {
+            Set<String> subset = new HashSet<>();
+
+            for (int j = 0; j < n; j++) {
+                if ((i & (1 << j)) > 0) {
+                    subset.add(itemArray[j]);
+                }
+            }
+
+            subsets.add(subset);
+        }
+
+        return subsets;
+    }
+
     private boolean isFrequentSubset(Set<String> candidate, Set<Set<String>> prevItemsets) {
         for (String item : candidate) {
             Set<String> subset = new HashSet<>(candidate);
@@ -223,12 +254,7 @@ public class AlgoritmaAprioriController {
         return true;
     }
 
-    /**
-     *
-     * @param minSupport
-     * @return
-     */
-    public DefaultListModel<String> generateFrequentItemsets() {
+    public DefaultListModel<String> generateFrequentItemsetsWithConfidence() {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         Map<Set<String>, Integer> frequentItemsets = generateFrequentItemsets(MIN_SUPPORT);
 
@@ -236,10 +262,54 @@ public class AlgoritmaAprioriController {
             Set<String> itemset = entry.getKey();
             int supportCount = entry.getValue();
 
-            String itemsetStr = itemset.toString() + " - Support Count: " + supportCount;
-            listModel.addElement(itemsetStr);
+            // Mengekstrak semua subset yang mungkin dari itemset
+            List<Set<String>> subsets = generateSubsets(itemset);
+
+            // Memeriksa confidence untuk setiap aturan asosiasi
+            for (Set<String> antecedent : subsets) {
+                Set<String> consequent = new HashSet<>(itemset);
+                consequent.removeAll(antecedent);
+
+                double confidence = calculateConfidence(antecedent, consequent, frequentItemsets);
+
+           
+                    String itemsetStr = antecedent.toString() + " -> " + consequent.toString()
+                            + " - Support Count: " + supportCount + " - Confidence: " + confidence;
+                    listModel.addElement(itemsetStr);
+                
+            }
         }
 
         return listModel;
+    }
+
+    //    public DefaultListModel<String> generateFrequentItemsets() {
+//        DefaultListModel<String> listModel = new DefaultListModel<>();
+//        Map<Set<String>, Integer> frequentItemsets = generateFrequentItemsets(MIN_SUPPORT);
+//
+//        for (Map.Entry<Set<String>, Integer> entry : frequentItemsets.entrySet()) {
+//            Set<String> itemset = entry.getKey();
+//            int supportCount = entry.getValue();
+//
+//            String itemsetStr = itemset.toString() + " - Support Count: " + supportCount;
+//            listModel.addElement(itemsetStr);
+//        }
+//
+//        return listModel;
+//    }
+    public void showTransactionDetails() {
+        List<TransaksiModel> transaksiList = getAllTransaksi();
+
+        System.out.println("Data Detail Transaksi:");
+        for (TransaksiModel transaksi : transaksiList) {
+            System.out.println("Transaksi ID: " + transaksi.getId());
+
+            System.out.println("Barang dalam Transaksi:");
+            for (DetailTransaksiModel detailTransaksi : transaksi.getDetailTransaksiList()) {
+                System.out.println("  Nama Barang: " + detailTransaksi.getNamaBarang());
+            }
+
+            System.out.println("--------------------");
+        }
     }
 }
