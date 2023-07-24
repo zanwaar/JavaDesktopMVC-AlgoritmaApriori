@@ -22,7 +22,7 @@ deafult namaDatabse : db_tokosembakoberkah
 
 ## cuplikan beberapa Screenshoot
 ## Halaman Login
-![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/login.JPG)
+![Alt Text](https://github.com/zanwaar/JavaDesktopMVC-AlgoritmaApriori/blob/main/screenshot/login.JPG)
 
 ## Dashboard
 ![Alt Text](https://github.com/zanwaar/JavaDesktopMVC/blob/main/screenshot/dashboard.JPG)
