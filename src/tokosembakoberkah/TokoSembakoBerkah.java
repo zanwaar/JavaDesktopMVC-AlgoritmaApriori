@@ -12,9 +12,9 @@ import tokosembakoberkah.view.Login.LoginFrame;
  */
 public class TokoSembakoBerkah {
 
-    /**
-     * @param args the command line arguments
-     */
+//    /**
+//     * @param args the command line arguments
+//     */
     public static void main(String[] args) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -32,4 +32,5 @@ public class TokoSembakoBerkah {
             }
         });
     }
+
 }

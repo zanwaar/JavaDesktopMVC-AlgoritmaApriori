@@ -4,11 +4,15 @@
  */
 package tokosembakoberkah.view.Dashboard;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 import tokosembakoberkah.MainFrame;
 import tokosembakoberkah.controller.AlgoritmaAprioriController;
 import tokosembakoberkah.controller.UserController;
+import tokosembakoberkah.model.TransaksiModel;
 import tokosembakoberkah.model.UserModel;
 
 /**
@@ -29,22 +33,35 @@ public class DashboardPanel extends javax.swing.JPanel {
         render();
         userController = new UserController();
 
-        // Menampilkan data detail transaksi
-        aprioriController.showTransactionDetails();
+        performApriori();
 
-        // Menghitung itemset frekuensi tinggi dan aturan asosiasi
-        DefaultListModel<String> frequentItemsetsWithConfidence = aprioriController.generateFrequentItemsetsWithConfidence();
+    }
 
-        // Menampilkan hasil itemset frekuensi tinggi dan aturan asosiasi
-        System.out.println("\nHasil Itemset Frekuensi Tinggi dan Aturan Asosiasi:");
-        for (int i = 0; i < frequentItemsetsWithConfidence.getSize(); i++) {
-            System.out.println(frequentItemsetsWithConfidence.getElementAt(i));
+    private void performApriori() {
+        double minConfidence = 0.8; // Nilai default untuk minConfidence
+        double minSupport = 0.3; // Nilai default untuk minSupport
+
+        // Ambil nilai dari JTextField dan konversikan menjadi double jika ada
+        // Jika JTextField tidak kosong, gunakan nilai yang dimasukkan oleh pengguna
+        if (!minConfidenceTextField.getText().isEmpty()) {
+            minConfidence = Double.parseDouble(minConfidenceTextField.getText());
         }
+
+        if (!minSupportTextField.getText().isEmpty()) {
+            minSupport = Double.parseDouble(minSupportTextField.getText());
+        }
+
+        // Panggil metode displayResults dari objek aprioriController
+        List<String> resultList = aprioriController.displayResults(minSupport, minConfidence);
+
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (String result : resultList) {
+            listModel.addElement(result);
+        }
+        yourJList.setModel(listModel);
     }
 
     private void render() {
-        DefaultListModel<String> listModel = aprioriController.generateFrequentItemsetsWithConfidence();
-        yourJList.setModel(listModel);
         UserModel currentUser = userController.getCurrentUser();
 
         if (currentUser != null) {
@@ -74,13 +91,14 @@ public class DashboardPanel extends javax.swing.JPanel {
         getsessionNama = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         yourJList = new javax.swing.JList<>();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        minConfidenceTextField = new javax.swing.JTextField();
+        minSupportTextField = new javax.swing.JTextField();
+        btnHitungApriori = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         Bkeluar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -150,9 +168,6 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel5.setText("Hasil Frequent Itemsets");
-
         yourJList.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         yourJList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -161,14 +176,35 @@ public class DashboardPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(yourJList);
 
-        jLabel6.setText("Algoritma Apriori adalah algoritma yang digunakan untuk menemukan itemset yang sering muncul (frequent itemset) dalam kumpulan data transaksi atau dataset. ");
-
-        jLabel9.setText("Nilai  MIN_SUPPORT adalah  `0.2`, yang berarti bahwa itemset yang muncul setidaknya pada 20%  dari transaksi keluar / pembelian yang dianggap sebagai frequent itemset");
-
         jLabel10.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel10.setText("Algoritma Apriori");
 
-        jLabel7.setText("Algoritma ini banyak digunakan dalam analisis asosiasi, yang mencoba menemukan hubungan antara item-item dalam dataset.");
+        minConfidenceTextField.setText("0.8");
+        minConfidenceTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                minConfidenceTextFieldKeyTyped(evt);
+            }
+        });
+
+        minSupportTextField.setText("0.3");
+        minSupportTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                minSupportTextFieldKeyTyped(evt);
+            }
+        });
+
+        btnHitungApriori.setText("Hitung Algoritma Apriori");
+        btnHitungApriori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHitungAprioriActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel3.setText("minConfidence");
+
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel5.setText("minSupport");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -180,11 +216,17 @@ public class DashboardPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minSupportTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minConfidenceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnHitungApriori)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -193,16 +235,15 @@ public class DashboardPanel extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel10)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5)
+                    .addComponent(minConfidenceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minSupportTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHitungApriori))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -283,26 +324,48 @@ public class DashboardPanel extends javax.swing.JPanel {
         mainFrame.changeContentPanel("barangM");
     }//GEN-LAST:event_BmasukMouseClicked
 
+    private void btnHitungAprioriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungAprioriActionPerformed
+        // TODO add your handling code here:
+        performApriori();
+    }//GEN-LAST:event_btnHitungAprioriActionPerformed
+
+    private void minSupportTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_minSupportTextFieldKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == '.')) {
+            evt.consume(); // Hentikan karakter yang tidak valid
+        }
+    }//GEN-LAST:event_minSupportTextFieldKeyTyped
+
+    private void minConfidenceTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_minConfidenceTextFieldKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == '.')) {
+            evt.consume(); // Hentikan karakter yang tidak valid
+        }
+    }//GEN-LAST:event_minConfidenceTextFieldKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bkeluar;
     private javax.swing.JPanel Bmasuk;
+    private javax.swing.JButton btnHitungApriori;
     private javax.swing.JLabel getsessionNama;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField minConfidenceTextField;
+    private javax.swing.JTextField minSupportTextField;
     private javax.swing.JList<String> yourJList;
     // End of variables declaration//GEN-END:variables
 }

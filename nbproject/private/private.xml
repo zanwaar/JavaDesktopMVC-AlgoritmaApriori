@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/java/TokoSembakoBerkah/README.md</file>
+            <file>file:/D:/java/TokoSembakoBerkah/src/tokosembakoberkah/model/DetailTransaksiModel.java</file>
+            <file>file:/D:/java/TokoSembakoBerkah/src/tokosembakoberkah/TokoSembakoBerkah.java</file>
             <file>file:/D:/java/TokoSembakoBerkah/src/tokosembakoberkah/view/Dashboard/DashboardPanel.java</file>
+            <file>file:/D:/java/TokoSembakoBerkah/src/tokosembakoberkah/AprioriAlgorithm.java</file>
+            <file>file:/D:/java/TokoSembakoBerkah/src/tokosembakoberkah/MainFrame.java</file>
             <file>file:/D:/java/TokoSembakoBerkah/src/tokosembakoberkah/controller/AlgoritmaAprioriController.java</file>
+            <file>file:/D:/java/TokoSembakoBerkah/src/tokosembakoberkah/model/BarangModel.java</file>
         </group>
     </open-files>
 </project-private>
